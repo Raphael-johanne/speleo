@@ -1,0 +1,13 @@
+/*
+!.htaccess
+!.gitignore
+!robots.txt
+!/administrator
+/administrator/*
+!/administrator/components
+!/modules/
+!/templates/
+!/plugins/
+!/language/
+!/_CONTENT/
+!/_DB/
