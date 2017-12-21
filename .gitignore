@@ -5,9 +5,10 @@
 !/administrator
 /administrator/*
 !/administrator/components
+!/components
+/components/*
+!/components/com_booking
 !/modules/
 !/templates/
 !/plugins/
 !/language/
-!/_CONTENT/
-!/_DB/
