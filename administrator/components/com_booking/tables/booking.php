@@ -6,14 +6,23 @@
  * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-
-// No direct access to this file
+// No direct access
 defined('_JEXEC') or die('Restricted access');
+
 /**
- * Booking Component Controller
+ * Booking Table class
  *
  * @since  0.0.1
  */
-class BookingController extends JControllerLegacy
+class BookingTableBooking extends JTable
 {
+	/**
+	 * Constructor
+	 *
+	 * @param   JDatabaseDriver  &$db  A database connector object
+	 */
+	function __construct(&$db)
+	{
+		parent::__construct('#__booking', 'id', $db);
+	}
 }

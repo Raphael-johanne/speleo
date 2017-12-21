@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset addfieldpath="/administrator/components/com_booking/models/fields">
+		<field
+				name="id"
+				type="hidden"
+				/>
+		<field
+				name="bookers"
+				type="checkboxes"
+				filter="array"
+		/>
+		<field
+				name="date"
+				type="text"
+				label="COM_BOOKING_BOOKING_DATE"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+		<field
+				name="period_id"
+				type="period"
+				label="COM_BOOKING_BOOKING_PERIOD"
+		/>
+		<field
+				name="formule_id"
+				type="formule"
+				label="COM_BOOKING_BOOKING_FORMULE"
+		/>
+	</fieldset>
+</form>

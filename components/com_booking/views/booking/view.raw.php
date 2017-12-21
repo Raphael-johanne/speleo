@@ -11,12 +11,27 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-// Get an instance of the controller prefixed by Booking
-$controller = JControllerLegacy::getInstance('Booking');
 
-// Perform the Request task
-$input = JFactory::getApplication()->input;
-$controller->execute($input->getCmd('task'));
 
-// Redirect if set by the controller
-$controller->redirect();
+/**
+ * HTML View class for the Booking Component
+ *
+ * @since  0.0.1
+ */
+class BookingViewBooking extends JViewLegacy
+{
+    protected $item = null;
+
+    /**
+     * @param null $tpl
+     *
+     * @return bool
+     *
+     * @since version
+     */
+	function display($tpl = null)
+	{
+		parent::display($tpl);
+	}
+
+}

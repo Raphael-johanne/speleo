@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset addfieldpath="/administrator/components/com_booking/models/fields">
+		<field
+				name="id"
+				type="hidden"
+				/>
+		<field
+				name="name"
+				type="text"
+				label="ddd"
+				description="dfff"
+				size="40"
+				class="inputbox"
+				default=""
+				/>
+		<field
+				name="period_ids"
+				type="period"
+				label="COM_BOOKING_BOOKING_GREETING_LABEL"
+				description="COM_BOOKING_BOOKING_GREETING_DESC"
+				multiple="true"
+		/>
+		<field
+				name="description"
+				type="editor"
+				label="azdaz"
+				description="dd"
+				size="40"
+				class="textarea"
+				default=""
+		/>
+		<field
+				name="program"
+				type="editor"
+				label="azdaz"
+				description="dd"
+				size="40"
+				class="textarea"
+				default=""
+		/>
+		<field
+				name="price"
+				type="text"
+				label="ddd"
+				description="dfff"
+				size="40"
+				class="inputbox"
+				default=""
+		/>
+		<field
+				name="max_person_allowed"
+				type="text"
+				label="ddd"
+				description="dfff"
+				size="40"
+				class="inputbox"
+				default=""
+		/>
+
+	</fieldset>
+</form>

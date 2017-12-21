@@ -1,27 +1,23 @@
 <?php
 /**
- * @package     Joomla.Administrator
- * @subpackage  com_helloworld
+ * @package     racol
+ * @subpackage  com_booking
  *
- * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
+
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
 /**
- * HelloWorld Model
+ * Booking Model
  *
  * @since  0.0.1
  */
 class BookingModelBooking extends JModelItem
 {
-	/**
-	 * @var array messages
-	 */
-	protected $messages;
-
 	/**
 	 * Method to get a table object, load it if necessary.
 	 *
@@ -33,41 +29,119 @@ class BookingModelBooking extends JModelItem
 	 *
 	 * @since   1.6
 	 */
-	public function getTable($type = 'HelloWorld', $prefix = 'HelloWorldTable', $config = array())
+	public function getTable($type = 'Booking', $prefix = 'BookingTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
 	}
 
-	/**
-	 * Get the message
-	 *
-	 * @param   integer  $id  Greeting Id
-	 *
-	 * @return  string        Fetched String from Table for relevant Id
-	 */
-	public function getMsg($id = 1)
+    /**
+     *
+     * @return mixed
+     *
+     * @since version
+     */
+	public function getUnavailabeDate($howMuch)
 	{
-		if (!is_array($this->messages))
-		{
-			$this->messages = array();
-		}
+        $db    = JFactory::getDbo();
+        $query = $db->getQuery(true);
 
-		if (!isset($this->messages[$id]))
-		{
-			// Request the selected id
-			$jinput = JFactory::getApplication()->input;
-			$id     = $jinput->get('id', 1, 'INT');
+        $query->select(['b.*', 'SUM(b.nbr_person)', 'f.max_person_allowed', 'f.name'])
+            ->from($db->quoteName('#__booking', 'b'))
+            ->join('INNER', $db->quoteName('#__formule', 'f') . ' ON (' . $db->quoteName('b.formule_id') . ' = ' . $db->quoteName('f.id') . ')')
+            ->where('b.is_canceled = 0')
+            ->having(sprintf('SUM(b.nbr_person) + %d > f.max_person_allowed OR b.is_private = 1', (int) $howMuch))
+            ->group([$db->quoteName('date'), $db->quoteName('period_id')]);
 
-			// Get a TableHelloWorld instance
-			$table = $this->getTable();
+        $db->setQuery($query);
 
-			// Load the message
-			$table->load($id);
-
-			// Assign the message
-			$this->messages[$id] = $table->greeting;
-		}
-
-		return $this->messages[$id];
+        return $db->loadObjectList();
 	}
+
+    /**
+     * @param $howMuch
+     *
+     * @return mixed
+     *
+     * @since version
+     */
+    public function getAvailabePeriods($howMuch)
+    {
+        $db    = JFactory::getDbo();
+        $query = $db->getQuery(true);
+
+        $query->select(['b.period_id', 'b.date', 'f.max_person_allowed'])
+            ->from($db->quoteName('#__booking', 'b'))
+            ->join('INNER', $db->quoteName('#__formule', 'f') . ' ON (' . $db->quoteName('b.formule_id') . ' = ' . $db->quoteName('f.id') . ')')
+            ->having(sprintf('SUM(b.nbr_person) + %d <= f.max_person_allowed', (int) $howMuch))
+            ->where('b.is_private = 0')
+            ->group([$db->quoteName('date'), $db->quoteName('period_id')]);
+
+        $db->setQuery($query);
+        $periodIds = $db->loadColumn();
+
+        $query = $db->getQuery(true);
+        $query->select('p.*')
+            ->from($db->quoteName('#__period', 'p'))
+            ->where(sprintf('p.id IN (%s)', implode(', ', $periodIds)));
+
+        $db->setQuery($query);
+        return $db->loadObjectList();
+    }
+
+    /**
+     * @param array $data
+     *
+     *
+     * @since version
+     */
+    public function saveSubscription(array $data, $ip)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+
+        $columns = [
+            'formule_id',
+            'nbr_person',
+            'price',
+            'date',
+            'is_canceled',
+            'is_private',
+            'is_comfirmed',
+            'period_id',
+            'firstname',
+            'lastname',
+            'email',
+            'phone',
+            'ip',
+            'address',
+            'zip_code',
+            'country',
+        ];
+
+        $values = [
+            (int) $data['formule_id'],
+            (int) $data['howmuch'],
+            $data['price'],
+            'STR_TO_DATE("'.$data['date'].'", "%m/%d/%Y")',
+            0,
+            0,
+            0,
+            (int) $data['period'],
+            $db->quote($data['form']['firstname']),
+            $db->quote($data['form']['lastname']),
+            $db->quote($data['form']['email']),
+            $db->quote($data['form']['phone']),
+            $db->quote($ip),
+            'null',
+            'null',
+            'null'
+        ];
+
+        $query
+            ->insert($db->quoteName('#__booking'))
+            ->columns($db->quoteName($columns))
+            ->values(implode(',', $values));
+        $db->setQuery($query);
+        $db->execute();
+    }
 }
