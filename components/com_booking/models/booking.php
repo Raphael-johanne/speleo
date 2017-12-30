@@ -94,8 +94,11 @@ class BookingModelBooking extends JModelItem
      *
      * @since version
      */
-    public function saveSubscription(array $data, $ip)
-    {
+    public function saveSubscription(
+        array $data,
+        $ip,
+        $encryptionKey
+    ) {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
 
@@ -116,6 +119,9 @@ class BookingModelBooking extends JModelItem
             'address',
             'zip_code',
             'country',
+            'encrypt',
+            'cdate',
+            'udate',
         ];
 
         $values = [
@@ -134,7 +140,10 @@ class BookingModelBooking extends JModelItem
             $db->quote($ip),
             'null',
             'null',
-            'null'
+            'null',
+            $db->quote($encryptionKey),
+            Date('now'),
+            Date('now')
         ];
 
         $query
@@ -142,6 +151,53 @@ class BookingModelBooking extends JModelItem
             ->columns($db->quoteName($columns))
             ->values(implode(',', $values));
         $db->setQuery($query);
+        $db->execute();
+    }
+
+    /**
+     * @param $encryptionKey
+     *
+     * @return mixed
+     *
+     * @since version
+     * @throws Exception
+     */
+    public function getByKey($encryptionKey) {
+        $db    = JFactory::getDbo();
+        $query = $db->getQuery(true);
+
+        $query->select(['b.id'])
+            ->from($db->quoteName('#__booking', 'b'))
+            ->where('b.encrypt = ' .  $db->quote($encryptionKey) );
+
+        $db->setQuery($query);
+        $booking = $db->loadObject();
+
+        if (null === $booking) {
+            throw new Exception('Subscription error, please contact admin');
+        }
+
+        return $booking;
+    }
+
+    /**
+     * @param $bookingId
+     *
+     *
+     * @since version
+     */
+    public function updateComfirmed($bookingId){
+        $db    = JFactory::getDBO();
+
+        $query = $db->getQuery(true);
+        $fields[] = $db->quoteName('is_comfirmed') . ' = 1';
+
+        $query->update('#__booking b')
+        ->set($fields)
+        ->where('b.id = ' . (int) $bookingId);
+
+        $db->setQuery($query);
+
         $db->execute();
     }
 }

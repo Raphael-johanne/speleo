@@ -10,22 +10,21 @@
 defined('_JEXEC') or die;
 
 /**
- * Content Component Route Helper.
+ * Content Component Encrypt Helper.
  *
  * @since  1.5
  */
-abstract class BookingHelperRoute
+abstract class BookingHelperEncrypt
 {
-
     /**
-     * @param $id
+     * @param $string
      *
      * @return string
      *
      * @since version
      */
-    public static function getFormuleRoute($id)
+    public static function encrypt($string)
     {
-        return 'index.php?option=com_booking&view=formule&id=' . $id;
+       return sha1($string);
     }
 }

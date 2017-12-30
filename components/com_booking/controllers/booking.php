@@ -1,16 +1,16 @@
 <?php
 /**
- * @package     Joomla.Site
- * @subpackage  com_contact
+ * @package     racol
+ * @subpackage  com_booking
  *
- * @copyright   Copyright (C) 2005 - 2017 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * Controller for single contact view
+ * Controller for booking
  *
  * @since  1.5.19
  */
@@ -21,6 +21,7 @@ class BookingControllerBooking extends JControllerForm
     const PERIOD_TPL    = 'period';
     const FORM_TPL      = 'form';
     const SUCCESS_TPL   = 'success';
+    const MAIL_TPL   = 'mail';
 
     /**
      * @var null
@@ -199,12 +200,28 @@ class BookingControllerBooking extends JControllerForm
         $data['errors'] = $this->isValid($data);
 
         if (empty($data['errors'])) {
+
             $data['price'] = $data['howmuch'] * $this->formule->price;
+            $encryptionKey = BookingHelperEncrypt::encrypt(
+                $data['form']['firstname'] . $data['form']['lastname'] . $data['form']['email']
+            );
+
             $this->getModel('booking')->saveSubscription(
                 $data,
-                $_SERVER['REMOTE_ADDR'] // @todo better joomla way to get it ?
+                $_SERVER['REMOTE_ADDR'], // @todo better joomla way to get it ?
+                $encryptionKey
             );
+
             $view = $this->getBookingView();
+            $view->comfirmLink = 'index.php?option=com_booking&task=comfirmation.check&key=' . $encryptionKey;
+
+            BookingHelperMailer::send(
+                'Your subscription comfirmation',
+                $data['form']['email'],
+                $view->loadTemplate(self::MAIL_TPL)
+            );
+
+            $view = $this->getBookingView(); // need to reinit all properties of view object for security reason
             $data['html'] =  $view->loadTemplate(self::SUCCESS_TPL);
         }
 
@@ -219,7 +236,7 @@ class BookingControllerBooking extends JControllerForm
     public function success() {
         $data = [];
         $view = $this->getBookingView();
-        $data['errors'] = $this->isValid($data);
+        $data['errors'] = [];
         $data['html'] =  $view->loadTemplate(self::SUCCESS_TPL);
 
         return $this->sendResonse($data);

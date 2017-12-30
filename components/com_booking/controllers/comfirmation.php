@@ -7,25 +7,25 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+
 defined('_JEXEC') or die;
 
 /**
- * Content Component Route Helper.
+ * Controller for comfirmation
  *
- * @since  1.5
+ * @since  1.5.19
  */
-abstract class BookingHelperRoute
+class BookingControllerComfirmation extends JControllerForm
 {
-
     /**
-     * @param $id
      *
-     * @return string
      *
      * @since version
      */
-    public static function getFormuleRoute($id)
-    {
-        return 'index.php?option=com_booking&view=formule&id=' . $id;
+    public function check(){
+        $booking = $this->getModel('booking')->getByKey(
+            $this->input->get('key')
+        );
+        $this->getModel('booking')->updateComfirmed($booking->id);
     }
 }
