@@ -48,7 +48,7 @@ class BookingModelBooking extends JModelItem
         $query->select(['b.*', 'SUM(b.nbr_person)', 'f.max_person_allowed', 'f.name'])
             ->from($db->quoteName('#__booking', 'b'))
             ->join('INNER', $db->quoteName('#__formule', 'f') . ' ON (' . $db->quoteName('b.formule_id') . ' = ' . $db->quoteName('f.id') . ')')
-            ->where('b.is_canceled = 0')
+            ->where('b.is_canceled = 0 AND b.is_comfirmed = 0')
             ->having(sprintf('SUM(b.nbr_person) + %d > f.max_person_allowed OR b.is_private = 1', (int) $howMuch))
             ->group([$db->quoteName('date'), $db->quoteName('period_id')]);
 
@@ -58,31 +58,20 @@ class BookingModelBooking extends JModelItem
 	}
 
     /**
-     * @param $howMuch
+     * @param $formuleId
      *
      * @return mixed
      *
      * @since version
      */
-    public function getAvailabePeriods($howMuch)
+    public function getAvailabePeriods($formuleId)
     {
         $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
-
-        $query->select(['b.period_id', 'b.date', 'f.max_person_allowed'])
-            ->from($db->quoteName('#__booking', 'b'))
-            ->join('INNER', $db->quoteName('#__formule', 'f') . ' ON (' . $db->quoteName('b.formule_id') . ' = ' . $db->quoteName('f.id') . ')')
-            ->having(sprintf('SUM(b.nbr_person) + %d <= f.max_person_allowed', (int) $howMuch))
-            ->where('b.is_private = 0')
-            ->group([$db->quoteName('date'), $db->quoteName('period_id')]);
-
-        $db->setQuery($query);
-        $periodIds = $db->loadColumn();
-
-        $query = $db->getQuery(true);
         $query->select('p.*')
             ->from($db->quoteName('#__period', 'p'))
-            ->where(sprintf('p.id IN (%s)', implode(', ', $periodIds)));
+            ->join('INNER', $db->quoteName('#__formule_period', 'fp') . ' ON (' . $db->quoteName('p.id') . ' = ' . $db->quoteName('fp.period_id') . ')')
+            ->where('fp.formule_id = '. (int) $formuleId);
 
         $db->setQuery($query);
         return $db->loadObjectList();
@@ -191,6 +180,11 @@ class BookingModelBooking extends JModelItem
 
         $query = $db->getQuery(true);
         $fields[] = $db->quoteName('is_comfirmed') . ' = 1';
+        $fields[] = $db->quoteName('encrypt') . ' = null';
+
+        /**
+         * @todo update udate
+         */
 
         $query->update('#__booking b')
         ->set($fields)

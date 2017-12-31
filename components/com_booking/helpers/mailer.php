@@ -17,6 +17,7 @@ defined('_JEXEC') or die;
 abstract class BookingHelperMailer
 {
     /**
+     * @param $subject
      * @param $recipients
      * @param $body
      * @param bool $isHtml
@@ -24,6 +25,7 @@ abstract class BookingHelperMailer
      *
      *
      * @since version
+     * @throws Exception
      */
     public static function send(
         $subject,

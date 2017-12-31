@@ -21,7 +21,7 @@ class BookingControllerBooking extends JControllerForm
     const PERIOD_TPL    = 'period';
     const FORM_TPL      = 'form';
     const SUCCESS_TPL   = 'success';
-    const MAIL_TPL   = 'mail';
+    const MAIL_TPL      = 'mail';
 
     /**
      * @var null
@@ -129,7 +129,7 @@ class BookingControllerBooking extends JControllerForm
 
         if (empty($data['errors'])) {
             $view = $this->getBookingView();
-            $view->periods = $this->getModel('booking')->getAvailabePeriods($data['howmuch']);
+            $view->periods = $this->getModel('booking')->getAvailabePeriods($this->formule->id);
             $data['html'] =  $view->loadTemplate(self::PERIOD_TPL);
         }
 
@@ -203,7 +203,7 @@ class BookingControllerBooking extends JControllerForm
 
             $data['price'] = $data['howmuch'] * $this->formule->price;
             $encryptionKey = BookingHelperEncrypt::encrypt(
-                $data['form']['firstname'] . $data['form']['lastname'] . $data['form']['email']
+                time() . $data['form']['firstname'] . $data['form']['lastname'] . $data['form']['email']
             );
 
             $this->getModel('booking')->saveSubscription(
@@ -215,11 +215,18 @@ class BookingControllerBooking extends JControllerForm
             $view = $this->getBookingView();
             $view->comfirmLink = 'index.php?option=com_booking&task=comfirmation.check&key=' . $encryptionKey;
 
-            BookingHelperMailer::send(
-                'Your subscription comfirmation',
-                $data['form']['email'],
-                $view->loadTemplate(self::MAIL_TPL)
-            );
+
+            try {
+                BookingHelperMailer::send(
+                    'Your subscription comfirmation',
+                    $data['form']['email'],
+                    $view->loadTemplate(self::MAIL_TPL)
+                );
+            } catch (Exception $e) {
+                $data['errors'] = [
+                    'An error append during sending mail please contact administrator to comfirmed your subscription'
+                ];
+            }
 
             $view = $this->getBookingView(); // need to reinit all properties of view object for security reason
             $data['html'] =  $view->loadTemplate(self::SUCCESS_TPL);
