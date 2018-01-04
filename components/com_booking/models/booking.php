@@ -131,8 +131,8 @@ class BookingModelBooking extends JModelItem
             'null',
             'null',
             $db->quote($encryptionKey),
-            Date('now'),
-            Date('now')
+            $db->quote(date("Y-m-d H:i:s")),
+            $db->quote(date("Y-m-d H:i:s"))
         ];
 
         $query
@@ -155,9 +155,12 @@ class BookingModelBooking extends JModelItem
         $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
 
-        $query->select(['b.id'])
+        $query->select(['b.*', 'p.name', 'p.hour'])
             ->from($db->quoteName('#__booking', 'b'))
-            ->where('b.encrypt = ' .  $db->quote($encryptionKey) );
+            ->join('INNER', $db->quoteName('#__period', 'p') . ' ON (' . $db->quoteName('p.id') . ' = ' . $db->quoteName('b.period_id') . ')')
+            ->where('b.encrypt = ' .  $db->quote($encryptionKey) )
+            ->where('b.cdate < ' .  $db->quote(date("Y-m-d H:i:s", strtotime("+1 hours"))) )
+            ->where('b.is_comfirmed = 0 AND b.is_canceled = 0');
 
         $db->setQuery($query);
         $booking = $db->loadObject();
@@ -179,16 +182,11 @@ class BookingModelBooking extends JModelItem
         $db    = JFactory::getDBO();
 
         $query = $db->getQuery(true);
-        $fields[] = $db->quoteName('is_comfirmed') . ' = 1';
-        $fields[] = $db->quoteName('encrypt') . ' = null';
+        $fields[] = 'is_comfirmed = 1';
 
-        /**
-         * @todo update udate
-         */
-
-        $query->update('#__booking b')
+        $query->update('#__booking')
         ->set($fields)
-        ->where('b.id = ' . (int) $bookingId);
+        ->where('id = ' . (int) $bookingId);
 
         $db->setQuery($query);
 

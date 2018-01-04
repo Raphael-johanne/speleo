@@ -26,8 +26,11 @@ class BookingControllerComfirmation extends JControllerForm
         $booking = $this->getModel('booking')->getByKey(
             $this->input->get('key')
         );
+
         $this->getModel('booking')->updateComfirmed($booking->id);
 
-        JFactory::getApplication()->enqueueMessage('Your subscription has been comfirmed, thank you');
+        $view->isComfirmed = false;
+
+        $this->setRedirect('index.php','Your subscription has been comfirmed, thank you');
     }
 }

@@ -52,6 +52,7 @@ abstract class BookingHelperMailer
         $mailer->setBody($body);
         $mailer->Encoding = 'base64';
         $send = $mailer->Send();
+
         if ( $send !== true ) {
             throw new Exception(sprintf('Error during sending mail : %s', $subject));
         }

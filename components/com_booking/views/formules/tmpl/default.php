@@ -11,12 +11,15 @@ defined('_JEXEC') or die;
 
 
 ?>
+<ul>
 <?php foreach ($this->items as $item):
     $link = JRoute::_(BookingHelperRoute::getFormuleRoute($item->id));
     ?>
+    <li>
     <a href="<?php echo $link?>">
         <?php echo $item->name ?>
     </a>
     <?php echo $item->price ?>
-
+    </li>
 <?php endforeach ?>
+</ul>

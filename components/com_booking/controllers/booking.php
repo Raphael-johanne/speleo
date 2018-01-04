@@ -200,13 +200,14 @@ class BookingControllerBooking extends JControllerForm
         $data['errors'] = $this->isValid($data);
 
         if (empty($data['errors'])) {
+            $bookingModel = $this->getModel('booking');
 
             $data['price'] = $data['howmuch'] * $this->formule->price;
             $encryptionKey = BookingHelperEncrypt::encrypt(
                 time() . $data['form']['firstname'] . $data['form']['lastname'] . $data['form']['email']
             );
 
-            $this->getModel('booking')->saveSubscription(
+            $bookingModel->saveSubscription(
                 $data,
                 $_SERVER['REMOTE_ADDR'], // @todo better joomla way to get it ?
                 $encryptionKey
@@ -214,7 +215,8 @@ class BookingControllerBooking extends JControllerForm
 
             $view = $this->getBookingView();
             $view->comfirmLink = 'index.php?option=com_booking&task=comfirmation.check&key=' . $encryptionKey;
-
+            $view->booking = $bookingModel->getByKey($encryptionKey);
+            $view->isComfirmed = false;
 
             try {
                 BookingHelperMailer::send(
