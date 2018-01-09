@@ -124,7 +124,10 @@ defined('_JEXEC') or die;
             this.ajaxCall('date', data, function (result) {
                 this.setContainerContent(result.html);
                 const unavailableDate = result.unavailable_date || [];
-
+                /**
+                 * @todo delete me before deployment and after test
+                 */
+                console.log(unavailableDate);
                 jQuery( "#datepicker" ).datepicker({
                     beforeShowDay: function(date){
                         var string = jQuery.datepicker.formatDate('yy-mm-dd', date);

@@ -79,7 +79,7 @@ class BookingControllerBooking extends JControllerForm
     public function date() {
         $data = [
             'howmuch' => (int) $this->input->getInt('howmuch'),
-            'unaivalable_date' => []
+            'unavailable_date' => []
         ];
 
         $data['errors'] = $this->isValid($data);
@@ -88,8 +88,19 @@ class BookingControllerBooking extends JControllerForm
             $view = $this->getBookingView();
 
             if ($unavailableDates = $this->getModel('booking')->getUnavailabeDate($data['howmuch'])) {
+                $treated = [];
                 foreach ($unavailableDates as $unavailableDate) {
-                    $data['unavailable_date'][] = $unavailableDate->date;
+                    /*
+                     * @todo bad implementation find a better way to limit date by date AND period for jquery calandar
+                     * in this case we allow only two periods but it must be editable in BO to add or remove
+                     * periods for the formules
+                     */
+                    if (isset($treated[$unavailableDate->date])
+                    && $treated[$unavailableDate->date] === true) {
+                        $data['unavailable_date'][] = $unavailableDate->date;
+                    } else {
+                        $treated[$unavailableDate->date] = true;
+                    }
                 }
             }
             $data['html'] =  $view->loadTemplate(self::DATE_TPL);
@@ -120,16 +131,19 @@ class BookingControllerBooking extends JControllerForm
      * @since version
      */
     public function period() {
+        $howMuch = (int) $this->input->getInt('howmuch');
+        $date = $this->input->getString('date');
+
         $data = [
-            'howmuch' => (int) $this->input->getInt('howmuch'),
-            'date' => $this->input->getString('date'),
+            'howmuch' => $howMuch,
+            'date' => $date
         ];
 
         $data['errors'] = $this->isValid($data);
 
         if (empty($data['errors'])) {
             $view = $this->getBookingView();
-            $view->periods = $this->getModel('booking')->getAvailabePeriods($this->formule->id);
+            $view->periods = $this->getModel('booking')->getAvailabePeriods($this->formule->id, $howMuch, date("Y-m-d", strtotime($date)));
             $data['html'] =  $view->loadTemplate(self::PERIOD_TPL);
         }
 
@@ -188,7 +202,7 @@ class BookingControllerBooking extends JControllerForm
             'formule_id' => (int) $this->formule->id,
             'howmuch' => (int) $this->input->getInt('howmuch'),
             'date' => $this->input->getString('date'),
-            'period' => $this->input->getInt('period'),
+            'period' => (int) $this->input->getInt('period'),
             'form' => [
                 'firstname' =>  $this->input->getString('firstname'),
                 'lastname' =>  $this->input->getString('lastname'),
@@ -243,9 +257,8 @@ class BookingControllerBooking extends JControllerForm
      * @since version
      */
     public function success() {
-        $data = [];
+        $data = ['errors' => []];
         $view = $this->getBookingView();
-        $data['errors'] = [];
         $data['html'] =  $view->loadTemplate(self::SUCCESS_TPL);
 
         return $this->sendResonse($data);
@@ -312,14 +325,18 @@ class BookingControllerBooking extends JControllerForm
                     $errors[] = 'The date you choose is not correct';
                 }
 
-                if ($unavailableDates = $this->getModel('booking')->getUnavailabeDate($data['howmuch'])) {
-                    foreach ($unavailableDates as $unavailableDate) {
-                        if ($date->format('Y-m-d') == $unavailableDate->date) {
-                            $errors[] = 'The date you choose is not available';
-                            break;
-                        }
-                    }
-                }
+                /**
+                 * @todo Add test for security reason, this test does not work anymore because of
+                 * change strategy about unavaibable date per date AND period
+                 */
+//                if ($unavailableDates = $this->getModel('booking')->getUnavailabeDate($data['howmuch'])) {
+//                    foreach ($unavailableDates as $unavailableDate) {
+//                        if ($date->format('Y-m-d') == $unavailableDate->date) {
+//                            $errors[] = 'The date you choose is not available';
+//                            break;
+//                        }
+//                    }
+//                }
             }
         }
 

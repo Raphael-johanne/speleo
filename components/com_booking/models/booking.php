@@ -35,22 +35,30 @@ class BookingModelBooking extends JModelItem
 	}
 
     /**
+     * @param $howMuch
+     * @param null $date
      *
      * @return mixed
      *
      * @since version
      */
-	public function getUnavailabeDate($howMuch)
+	public function getUnavailabeDate($howMuch, $date = null)
 	{
         $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
 
-        $query->select(['b.*', 'SUM(b.nbr_person)', 'f.max_person_allowed', 'f.name'])
+        $query->select(['b.*', 'SUM(b.nbr_person)', 'f.max_person_allowed', 'f.name', 'f.id', 'b.period_id'])
             ->from($db->quoteName('#__booking', 'b'))
             ->join('INNER', $db->quoteName('#__formule', 'f') . ' ON (' . $db->quoteName('b.formule_id') . ' = ' . $db->quoteName('f.id') . ')')
-            ->where('b.is_canceled = 0 AND b.is_comfirmed = 0')
-            ->having(sprintf('SUM(b.nbr_person) + %d > f.max_person_allowed OR b.is_private = 1', (int) $howMuch))
+            ->where('b.is_canceled = 0 AND b.is_comfirmed = 1')
+            ->having(sprintf('SUM(b.nbr_person) + %d > f.max_person_allowed OR b.is_private = 1',
+                (int) $howMuch
+            ))
             ->group([$db->quoteName('date'), $db->quoteName('period_id')]);
+
+        if ($date !== null) {
+            $query->where('b.date = ' . $db->quote($date));
+        }
 
         $db->setQuery($query);
 
@@ -59,19 +67,40 @@ class BookingModelBooking extends JModelItem
 
     /**
      * @param $formuleId
+     * @param $howMuch
+     * @param $date
      *
      * @return mixed
      *
      * @since version
      */
-    public function getAvailabePeriods($formuleId)
+    public function getAvailabePeriods($formuleId, $howMuch, $date)
     {
         $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
+        $unavailableDates = $this->getUnavailabeDate($howMuch, $date);
+
+        $periodsUnavailable = [];
+        foreach ($unavailableDates as $date) {
+            $periodsUnavailable[] = (int) $date->period_id;
+        }
+
         $query->select('p.*')
             ->from($db->quoteName('#__period', 'p'))
             ->join('INNER', $db->quoteName('#__formule_period', 'fp') . ' ON (' . $db->quoteName('p.id') . ' = ' . $db->quoteName('fp.period_id') . ')')
-            ->where('fp.formule_id = '. (int) $formuleId);
+            ->where(
+                sprintf('fp.formule_id = %d',
+                    (int) $formuleId
+                )
+            );
+
+        if (!empty($periodsUnavailable)) {
+            $query->where(
+                sprintf('p.id NOT IN (%s)',
+                    implode(',', $periodsUnavailable)
+                    )
+                );
+        }
 
         $db->setQuery($query);
         return $db->loadObjectList();
