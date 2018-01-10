@@ -12,13 +12,54 @@ defined('_JEXEC') or die;
 ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 
-<?php echo $this->item->get('name') ?>
+<style>
+    #booking-map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
 
-<?php echo $this->item->get('price') ?>
+<?php if ($this->item->get('lat') && $this->item->get('lng')): ?>
+    <a href="#" id="booking-map-link"><?php echo 'SEE ON MAP'; ?></a>
+    <div id="booking-map"></div>
+<?php endif;?>
+
+<h1>
+    <?php echo $this->item->get('name') ?>
+</h1>
+<ul>
+    <li>
+        <?php echo $this->item->get('description') ?>
+    </li>
+    <li>
+        <?php echo $this->item->get('program') ?>
+    </li>
+</ul>
 
 <div id="errors">&nbsp;</div>
 
+<?php echo $this->item->get('price') ?>
+
 <div id="booking">&nbsp;</div>
+
+<script>
+    function initMap() {
+        var place = {lat: <?php echo $this->item->get('lat') ?>, lng: <?php echo $this->item->get('lng') ?>};
+        var map = new google.maps.Map(document.getElementById('booking-map'), {
+            zoom: 4,
+            center: place
+        });
+        var marker = new google.maps.Marker({
+            position: place,
+            map: map
+        });
+    }
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_API_KEY&callback=initMap">
+</script>
+
 
 <script type="application/javascript">
 
@@ -37,6 +78,11 @@ defined('_JEXEC') or die;
         this.period = null;
         this.currentStep = 0;
         this.finalData = null;
+
+        jQuery('#booking-map-link').click(function(event) {
+            event.preventDefault();
+            jQuery('#booking-map').toggle();
+        });
     }
 
     jQuery.extend(Booking.prototype, {

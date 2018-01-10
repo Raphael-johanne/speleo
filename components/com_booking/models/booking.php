@@ -81,8 +81,8 @@ class BookingModelBooking extends JModelItem
         $unavailableDates = $this->getUnavailabeDate($howMuch, $date);
 
         $periodsUnavailable = [];
-        foreach ($unavailableDates as $date) {
-            $periodsUnavailable[] = (int) $date->period_id;
+        foreach ($unavailableDates as $unavailableDate) {
+            $periodsUnavailable[] = (int) $unavailableDate->period_id;
         }
 
         $query->select('p.*')

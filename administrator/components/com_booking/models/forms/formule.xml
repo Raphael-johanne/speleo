@@ -8,8 +8,7 @@
 		<field
 				name="name"
 				type="text"
-				label="ddd"
-				description="dfff"
+				label="COM_BOOKING_BOOKING_NAME"
 				size="40"
 				class="inputbox"
 				default=""
@@ -17,15 +16,14 @@
 		<field
 				name="period_ids"
 				type="period"
-				label="COM_BOOKING_BOOKING_GREETING_LABEL"
+				label="COM_BOOKING_BOOKING_PERIOD_IDS"
 				description="COM_BOOKING_BOOKING_GREETING_DESC"
 				multiple="true"
 		/>
 		<field
 				name="description"
 				type="editor"
-				label="azdaz"
-				description="dd"
+				label="COM_BOOKING_BOOKING_DESCRIPTION"
 				size="40"
 				class="textarea"
 				default=""
@@ -33,8 +31,7 @@
 		<field
 				name="program"
 				type="editor"
-				label="azdaz"
-				description="dd"
+				label="COM_BOOKING_BOOKING_PROGRAM"
 				size="40"
 				class="textarea"
 				default=""
@@ -42,8 +39,7 @@
 		<field
 				name="price"
 				type="text"
-				label="ddd"
-				description="dfff"
+				label="COM_BOOKING_BOOKING_PRICE"
 				size="40"
 				class="inputbox"
 				default=""
@@ -51,12 +47,34 @@
 		<field
 				name="max_person_allowed"
 				type="text"
-				label="ddd"
-				description="dfff"
+				label="COM_BOOKING_BOOKING_MAX_ALLOWED_PERSON"
 				size="40"
 				class="inputbox"
 				default=""
 		/>
-
+		<field
+				name="google_place"
+				type="text"
+				label="COM_BOOKING_BOOKING_GOOGLE_PLACE"
+				size="40"
+				class="inputbox"
+				default=""
+		/>
+		<field
+				name="lat"
+				type="text"
+				label="COM_BOOKING_BOOKING_GOOGLE_LATITUDE"
+				size="40"
+				class="inputbox"
+				default=""
+		/>
+		<field
+				name="lng"
+				type="text"
+				label="COM_BOOKING_BOOKING_GOOGLE_LONGITUDE"
+				size="40"
+				class="inputbox"
+				default=""
+		/>
 	</fieldset>
 </form>
