@@ -39,7 +39,7 @@ class BookingControllerBooking extends JControllerForm
         parent::__construct();
 
         $this->formule = $this->getModel('formule')->getFormule(
-            $this->input->getInt('formule_id')
+            (int) $this->input->getInt('formule_id')
         );
     }
 
@@ -86,27 +86,39 @@ class BookingControllerBooking extends JControllerForm
 
         if (empty($data['errors'])) {
             $view = $this->getBookingView();
-
-            if ($unavailableDates = $this->getModel('booking')->getUnavailabeDate($data['howmuch'])) {
-                $treated = [];
-                foreach ($unavailableDates as $unavailableDate) {
-                    /*
-                     * @todo bad implementation find a better way to limit date by date AND period for jquery calandar
-                     * in this case we allow only two periods but it must be editable in BO to add or remove
-                     * periods for the formules
-                     */
-                    if (isset($treated[$unavailableDate->date])
-                    && $treated[$unavailableDate->date] === true) {
-                        $data['unavailable_date'][] = $unavailableDate->date;
-                    } else {
-                        $treated[$unavailableDate->date] = true;
-                    }
-                }
-            }
+            $data['unavailable_date'] = $this->getUnavailableDates($data['howmuch']);
             $data['html'] =  $view->loadTemplate(self::DATE_TPL);
         }
 
         return $this->sendResonse($data);
+    }
+
+    /**
+     * @param $howMuch
+     *
+     * @return array
+     *
+     * @since version
+     */
+    private function getUnavailableDates($howMuch) {
+        $return = [];
+        if ($unavailableDates = $this->getModel('booking')->getUnavailabeDate($howMuch)) {
+            $treated = [];
+            foreach ($unavailableDates as $unavailableDate) {
+                /*
+                 * bad implementation find a better way to limit date by date AND period for jquery calandar
+                 * in this case we allow only two periods but it must be editable in BO to add or remove
+                 * periods for the formules, it is not a blocking point but could be in the future
+                 */
+                if (isset($treated[$unavailableDate->date])
+                    && $treated[$unavailableDate->date] === true) {
+                    $return[] = $unavailableDate->date;
+                } else {
+                    $treated[$unavailableDate->date] = true;
+                }
+            }
+        }
+        return $return;
     }
 
     /**
@@ -195,9 +207,6 @@ class BookingControllerBooking extends JControllerForm
      * @since version
      */
     public function saveform() {
-        /**
-         * @todo find a way to send an array for subscriber information
-         */
         $data = [
             'formule_id' => (int) $this->formule->id,
             'howmuch' => (int) $this->input->getInt('howmuch'),
@@ -223,7 +232,7 @@ class BookingControllerBooking extends JControllerForm
 
             $bookingModel->saveSubscription(
                 $data,
-                $_SERVER['REMOTE_ADDR'], // @todo better joomla way to get it ?
+                $this->input->server->get('REMOTE_ADDR'),
                 $encryptionKey
             );
 
@@ -301,8 +310,6 @@ class BookingControllerBooking extends JControllerForm
      * @return array
      *
      * @since version
-     *
-     * @todo Create a validator class for controller and model for booking registration
      */
     private function isValid(array $data) {
         $errors = [];
@@ -316,7 +323,7 @@ class BookingControllerBooking extends JControllerForm
 
         if (isset($data['date'])) {
             if (empty($data['date'])) {
-                $errors[] = 'The date  is required';
+                $errors[] = JText::_('COM_BOOKING_ERROR_WHEN');
             } else {
                 $now = new DateTime('NOW');
                 $date = new DateTime($data['date']);
@@ -325,45 +332,42 @@ class BookingControllerBooking extends JControllerForm
                     $errors[] = JText::_('COM_BOOKING_ERROR_WHEN');
                 }
 
-                /**
-                 * @todo Add test for security reason, this test does not work anymore because of
-                 * change strategy about unavaibable date per date AND period
-                 */
-//                if ($unavailableDates = $this->getModel('booking')->getUnavailabeDate($data['howmuch'])) {
-//                    foreach ($unavailableDates as $unavailableDate) {
-//                        if ($date->format('Y-m-d') == $unavailableDate->date) {
-//                            $errors[] = 'The date you choose is not available';
-//                            break;
-//                        }
-//                    }
-//                }
+
+                if ($unavailableDates = $this->getUnavailableDates($data['howmuch'])) {
+                    foreach ($unavailableDates as $unavailableDate) {
+                        if ($date->format('Y-m-d') == $unavailableDate->date) {
+                            $errors[] = JText::_('COM_BOOKING_ERROR_WHEN');
+                            break;
+                        }
+                    }
+                }
             }
         }
 
         if (isset($data['period'])) {
             $period =  $this->getModel('period')->getPeriod($data['period']);
             if (null === $period->id) {
-                $errors[] = JText::_('COM_BOOKING_ERROR_WHEN_PERIOD'); // The period you choose is not correct';
+                $errors[] = JText::_('COM_BOOKING_ERROR_WHEN_PERIOD');
             }
         }
 
         if (isset($data['form'])) {
             $subscriber = $data['form'];
             if (empty($subscriber['firstname'])) {
-                $errors[] = JText::_('COM_BOOKING_ERROR_FIRSTNAME'); //'Firstname is required';
+                $errors[] = JText::_('COM_BOOKING_ERROR_FIRSTNAME');
             }
 
             if (empty($subscriber['lastname'])) {
-                $errors[] = JText::_('COM_BOOKING_ERROR_LASTNAME'); //'Lastname is required';
+                $errors[] = JText::_('COM_BOOKING_ERROR_LASTNAME');
             }
 
             if (empty($subscriber['email'])
             || !filter_var($subscriber['email'], FILTER_VALIDATE_EMAIL)) {
-                $errors[] = JText::_('COM_BOOKING_ERROR_EMAIL'); //'Email is required';
+                $errors[] = JText::_('COM_BOOKING_ERROR_EMAIL');
             }
 
             if (empty($subscriber['phone'])) {
-                $errors[] = JText::_('COM_BOOKING_ERROR_PHONE'); //'Phone is required';
+                $errors[] = JText::_('COM_BOOKING_ERROR_PHONE');
             }
         }
 

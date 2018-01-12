@@ -16,11 +16,12 @@ defined('_JEXEC') or die('Restricted access');
  */
 class BookingModelBookings extends JModelList
 {
-	/**
-	 * Method to build an SQL query to load the list  data.
-	 *
-	 * @return      string  An SQL query
-	 */
+    /**
+     *
+     * @return mixed
+     *
+     * @since version
+     */
 	protected function getListQuery()
 	{
 		$db    = JFactory::getDbo();

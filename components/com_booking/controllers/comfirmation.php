@@ -23,14 +23,28 @@ class BookingControllerComfirmation extends JControllerForm
      * @since version
      */
     public function check(){
-        $booking = $this->getModel('booking')->getByKey(
-            $this->input->get('key')
-        );
+        $key = $this->input->get('key');
 
-        $this->getModel('booking')->updateComfirmed($booking->id);
+        if ($this->isValid($key)) {
+            $booking = $this->getModel('booking')->getByKey(
+                $key
+            );
+            $this->getModel('booking')->updateComfirmed($booking->id);
+            $this->setRedirect('index.php', JText::_('COM_BOOKING_SUBSCRIPTION_COMFIRMATION_MESSAGE'));
+        } else {
+            $this->setRedirect('index.php', JText::_('COM_BOOKING_SUBSCRIPTION_FAIL_MESSAGE'));
+        }
+    }
 
-        $view->isComfirmed = false;
-
-        $this->setRedirect('index.php','Your subscription has been comfirmed, thank you');
+    /**
+     * @param $key
+     *
+     * @return string
+     *
+     * @since version
+     */
+    private function isValid($key)
+    {
+        return BookingHelperEncrypt::isValid($key);
     }
 }

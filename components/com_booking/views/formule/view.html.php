@@ -30,8 +30,7 @@ class BookingViewFormule extends JViewLegacy
      */
 	function display($tpl = null)
 	{
-
-        $input = JFactory::getApplication()->input;
+        $input  = JFactory::getApplication()->input;
         $id     = $input->get('id', 1, 'INT');
 
 	    $model = $this->getModel();

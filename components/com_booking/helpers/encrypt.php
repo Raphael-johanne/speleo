@@ -27,4 +27,16 @@ abstract class BookingHelperEncrypt
     {
        return sha1($string);
     }
+
+    /**
+     * @param $key
+     *
+     * @return bool
+     *
+     * @since version
+     */
+    public static function isValid($key)
+    {
+        return strlen($key) === 40;
+    }
 }

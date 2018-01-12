@@ -16,11 +16,10 @@ defined('_JEXEC') or die('Restricted access');
  */
 class BookingTableBooking extends JTable
 {
-	/**
-	 * Constructor
-	 *
-	 * @param   JDatabaseDriver  &$db  A database connector object
-	 */
+    /**
+     * BookingTableBooking constructor.
+     * @param $db
+     */
 	function __construct(&$db)
 	{
 		parent::__construct('#__booking', 'id', $db);
