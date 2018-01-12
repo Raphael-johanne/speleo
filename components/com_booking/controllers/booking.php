@@ -310,7 +310,7 @@ class BookingControllerBooking extends JControllerForm
         if (isset($data['howmuch'])) {
             if ($data['howmuch'] < $this->formule->min_person_allowed
                 || $data['howmuch'] > $this->formule->max_person_allowed ) {
-                $errors[] = 'The number of person is not correct';
+                $errors[] = JText::_('COM_BOOKING_ERROR_HOW_MUCH');
             }
         }
 
@@ -322,7 +322,7 @@ class BookingControllerBooking extends JControllerForm
                 $date = new DateTime($data['date']);
 
                 if ($now > $date) {
-                    $errors[] = 'The date you choose is not correct';
+                    $errors[] = JText::_('COM_BOOKING_ERROR_WHEN');
                 }
 
                 /**
@@ -343,27 +343,27 @@ class BookingControllerBooking extends JControllerForm
         if (isset($data['period'])) {
             $period =  $this->getModel('period')->getPeriod($data['period']);
             if (null === $period->id) {
-                $errors[] = 'The period you choose is not correct';
+                $errors[] = JText::_('COM_BOOKING_ERROR_WHEN_PERIOD'); // The period you choose is not correct';
             }
         }
 
         if (isset($data['form'])) {
             $subscriber = $data['form'];
             if (empty($subscriber['firstname'])) {
-                $errors[] = 'Firstname is required';
+                $errors[] = JText::_('COM_BOOKING_ERROR_FIRSTNAME'); //'Firstname is required';
             }
 
             if (empty($subscriber['lastname'])) {
-                $errors[] = 'Lastname is required';
+                $errors[] = JText::_('COM_BOOKING_ERROR_LASTNAME'); //'Lastname is required';
             }
 
             if (empty($subscriber['email'])
             || !filter_var($subscriber['email'], FILTER_VALIDATE_EMAIL)) {
-                $errors[] = 'Email is required';
+                $errors[] = JText::_('COM_BOOKING_ERROR_EMAIL'); //'Email is required';
             }
 
             if (empty($subscriber['phone'])) {
-                $errors[] = 'Phone is required';
+                $errors[] = JText::_('COM_BOOKING_ERROR_PHONE'); //'Phone is required';
             }
         }
 

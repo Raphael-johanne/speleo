@@ -11,4 +11,4 @@ defined('_JEXEC') or die;
 
 ?>
 
-Subscription successed, you will recieve an email with a link to comfirm it.
+<?php echo JText::_('COM_BOOKING_SUBSCRIPTION_SUCCESS') ?>

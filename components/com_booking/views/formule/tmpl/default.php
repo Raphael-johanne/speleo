@@ -20,7 +20,7 @@ defined('_JEXEC') or die;
 </style>
 
 <?php if ($this->item->get('lat') && $this->item->get('lng')): ?>
-    <a href="#" id="booking-map-link"><?php echo 'SEE ON MAP'; ?></a>
+    <a href="#" id="booking-map-link"><?php echo JText::_('COM_BOOKING_SEE_ON_MAP'); ?></a>
     <div id="booking-map"></div>
 <?php endif;?>
 

@@ -11,36 +11,37 @@ defined('_JEXEC') or die;
 
 ?>
 
-Hello,
-
-You have subribe to the formule <?php echo $this->formule->name ?> on our site:
+<?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_HELLO') ?>,
+<br />
+<?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_INFO', $this->formule->name) ?> : <?php echo $this->formule->name ?>
+<br />
 <ul>
     <li>
-        Firstname : <?php echo $this->booking->firstname ?>
+        <?php echo JText::_('COM_BOOKING_FIRSTNAME') ?> : <?php echo $this->booking->firstname ?>
     </li>
     <li>
-        Lastname : <?php echo $this->booking->lastname ?>
+        <?php echo JText::_('COM_BOOKING_LASTNAME') ?> : <?php echo $this->booking->lastname ?>
     </li>
     <li>
-        Email : <?php echo $this->booking->email ?>
+        <?php echo JText::_('COM_BOOKING_EMAIL') ?> : <?php echo $this->booking->email ?>
     </li>
     <li>
-        Person number : <?php echo $this->booking->nbr_person ?>
+        <?php echo JText::_('COM_BOOKING_NBR_PERSON') ?> : <?php echo $this->booking->nbr_person ?>
     </li>
     <li>
-        Date : <?php echo $this->booking->date ?>
+        <?php echo JText::_('COM_BOOKING_DATE') ?> : <?php echo $this->booking->date ?>
     </li>
     <li>
-        Period : <?php echo $this->booking->name ?> - <?php echo $this->booking->hour ?>
+        <?php echo JText::_('COM_BOOKING_PERIOD') ?> : <?php echo $this->booking->name ?> - <?php echo $this->booking->hour ?>
     </li>
 </ul>
 <br />
-<b>You have one hour to comfirm your subscription else it will be automatically canceled.</b>
+<b><?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_ONE_HOUR_TO_COMFIRM') ?></b>
 <br />
-<b>To do it, please follow this link :</b>
-<br />
-<br />
-<a href="<?php echo JURI::root() . $this->comfirmLink ?>">Comfirm your subscription</a>
+<b><?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_FOLLOW_LINK') ?> :</b>
 <br />
 <br />
-Thanks again !
+<a href="<?php echo JURI::root() . $this->comfirmLink ?>"><?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_COMFIRM_SUBSCRIPTION') ?></a>
+<br />
+<br />
+<?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_THANK') ?> !

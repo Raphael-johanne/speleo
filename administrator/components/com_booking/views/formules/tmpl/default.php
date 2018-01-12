@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted Access');
 	<table class="table table-striped table-hover">
 		<thead>
 		<tr>
-			<th width="1%"><?php echo JText::_('COM_BOOKING_FORMULE_NUM'); ?></th>
+			<th width="1%"><?php echo JText::_('COM_BOOKING_NUM'); ?></th>
 			<th width="2%">
 				<?php echo JHtml::_('grid.checkall'); ?>
 			</th>

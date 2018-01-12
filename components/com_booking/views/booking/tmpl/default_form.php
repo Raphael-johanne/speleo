@@ -11,26 +11,26 @@ defined('_JEXEC') or die;
 
 ?>
 
-<h3>Subscription</h3>
+<h3><?php echo JText::_('COM_BOOKING_SUBSCRIPTION') ?></h3>
 <form name="subscription">
     <label for="firstname">
-        Firstname *
+        <?php echo JText::_('COM_BOOKING_FIRSTNAME') ?>
     </label>
     <input id="firstname" type="text" name="form[firstname]" />
 
     <label for="lastname">
-        Lastname *
+        <?php echo JText::_('COM_BOOKING_LASTNAME') ?>
     </label>
     <input id="lastname" type="text" name="form[lastname]" />
 
     <label for="email">
-        Email *
+        <?php echo JText::_('COM_BOOKING_EMAIL') ?>
     </label>
     <input id="email" type="text" name="form[email]" />
 
     <label for="phone">
-        Phone *
+        <?php echo JText::_('COM_BOOKING_PHONE') ?>
     </label>
     <input id="phone" type="text" name="form[phone]" />
 </form>
-<a href="#" id="form-save">Subscribe</a>
+<a href="#" id="form-save"><?php echo JText::_('COM_BOOKING_SUBSCRIBE') ?></a>

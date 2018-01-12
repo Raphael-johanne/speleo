@@ -6,11 +6,6 @@
 				type="hidden"
 				/>
 		<field
-				name="bookers"
-				type="checkboxes"
-				filter="array"
-		/>
-		<field
 				name="date"
 				type="text"
 				label="COM_BOOKING_BOOKING_DATE"

@@ -73,7 +73,7 @@ defined('_JEXEC') or die('Restricted access');
                         <span class="acl-action"><?php echo JText::_('COM_BOOKING_BOOKING_IS_COMFIRMED'); ?></span>
                     </th>
                     <th class="actions" id="actions-th1">
-                        <span class="acl-action"><?php echo JText::_('COM_BOOKING_BOOKING_IS_CANCELED'); ?>d</span>
+                        <span class="acl-action"><?php echo JText::_('COM_BOOKING_BOOKING_IS_CANCELED'); ?></span>
                     </th>
                 </tr>
                 </thead>

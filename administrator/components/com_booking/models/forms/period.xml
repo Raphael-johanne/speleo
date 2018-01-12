@@ -8,8 +8,7 @@
 		<field
 				name="name"
 				type="text"
-				label="ddd"
-				description="dfff"
+				label="COM_BOOKING_PERIOD_NAME"
 				size="40"
 				class="inputbox"
 				default=""
@@ -17,8 +16,7 @@
 		<field
 				name="hour"
 				type="text"
-				label="azdaz"
-				description="dd"
+				label="COM_BOOKING_PERIOD_HOUR"
 				size="40"
 				class="inputbox"
 				default=""

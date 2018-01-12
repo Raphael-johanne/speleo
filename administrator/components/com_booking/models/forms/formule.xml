@@ -8,7 +8,7 @@
 		<field
 				name="name"
 				type="text"
-				label="COM_BOOKING_BOOKING_NAME"
+				label="COM_BOOKING_FORMULE_NAME"
 				size="40"
 				class="inputbox"
 				default=""
@@ -16,14 +16,13 @@
 		<field
 				name="period_ids"
 				type="period"
-				label="COM_BOOKING_BOOKING_PERIOD_IDS"
-				description="COM_BOOKING_BOOKING_GREETING_DESC"
+				label="COM_BOOKING_FORMULE_PERIOD_IDS"
 				multiple="true"
 		/>
 		<field
 				name="description"
 				type="editor"
-				label="COM_BOOKING_BOOKING_DESCRIPTION"
+				label="COM_BOOKING_FORMULE_DESCRIPTION"
 				size="40"
 				class="textarea"
 				default=""
@@ -31,7 +30,7 @@
 		<field
 				name="program"
 				type="editor"
-				label="COM_BOOKING_BOOKING_PROGRAM"
+				label="COM_BOOKING_FORMULE_PROGRAM"
 				size="40"
 				class="textarea"
 				default=""
@@ -39,7 +38,7 @@
 		<field
 				name="price"
 				type="text"
-				label="COM_BOOKING_BOOKING_PRICE"
+				label="COM_BOOKING_FORMULE_PRICE"
 				size="40"
 				class="inputbox"
 				default=""
@@ -47,7 +46,7 @@
 		<field
 				name="max_person_allowed"
 				type="text"
-				label="COM_BOOKING_BOOKING_MAX_ALLOWED_PERSON"
+				label="COM_BOOKING_FORMULE_MAX_ALLOWED_PERSON"
 				size="40"
 				class="inputbox"
 				default=""
@@ -55,7 +54,7 @@
 		<field
 				name="google_place"
 				type="text"
-				label="COM_BOOKING_BOOKING_GOOGLE_PLACE"
+				label="COM_BOOKING_FORMULE_GOOGLE_PLACE"
 				size="40"
 				class="inputbox"
 				default=""
@@ -63,7 +62,7 @@
 		<field
 				name="lat"
 				type="text"
-				label="COM_BOOKING_BOOKING_GOOGLE_LATITUDE"
+				label="COM_BOOKING_FORMULE_GOOGLE_LATITUDE"
 				size="40"
 				class="inputbox"
 				default=""
@@ -71,7 +70,7 @@
 		<field
 				name="lng"
 				type="text"
-				label="COM_BOOKING_BOOKING_GOOGLE_LONGITUDE"
+				label="COM_BOOKING_FORMULE_GOOGLE_LONGITUDE"
 				size="40"
 				class="inputbox"
 				default=""
