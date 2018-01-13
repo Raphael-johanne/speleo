@@ -7,13 +7,31 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+
+
+
 /**
- * Booking Component Controller
+ * HTML View class for the Booking Component
  *
  * @since  0.0.1
  */
-class BookingController extends JControllerLegacy
+class BookingViewBooking extends JViewLegacy
 {
+    protected $item = null;
+
+    /**
+     * @param null $tpl
+     *
+     * @return bool
+     *
+     * @since version
+     */
+	function display($tpl = null)
+	{
+		parent::display($tpl);
+	}
+
 }

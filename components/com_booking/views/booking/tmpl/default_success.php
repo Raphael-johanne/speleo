@@ -7,13 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access to this file
-defined('_JEXEC') or die('Restricted access');
-/**
- * Booking Component Controller
- *
- * @since  0.0.1
- */
-class BookingController extends JControllerLegacy
-{
-}
+defined('_JEXEC') or die;
+
+?>
+
+<?php echo JText::_('COM_BOOKING_SUBSCRIPTION_SUCCESS') ?>

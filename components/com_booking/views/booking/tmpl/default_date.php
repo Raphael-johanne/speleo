@@ -7,13 +7,10 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// No direct access to this file
-defined('_JEXEC') or die('Restricted access');
-/**
- * Booking Component Controller
- *
- * @since  0.0.1
- */
-class BookingController extends JControllerLegacy
-{
-}
+defined('_JEXEC') or die;
+
+?>
+
+<h3><?php echo JText::_('COM_BOOKING_WHEN') ?></h3>
+<div id="datepicker"></div>
+<a href="#" id="date-save"><?php echo JText::_('COM_BOOKING_NEXT') ?></a>

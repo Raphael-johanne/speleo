@@ -9,11 +9,21 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+
 /**
- * Booking Component Controller
+ * General Controller of  component
  *
- * @since  0.0.1
+ * @package     racol
+ * @subpackage  com_booking
+ * @since       0.0.7
  */
 class BookingController extends JControllerLegacy
 {
+	/**
+	 * The default view for the display method.
+	 *
+	 * @var string
+	 * @since 12.2
+	 */
+	protected $default_view = 'bookings';
 }
