@@ -17,25 +17,25 @@ defined('_JEXEC') or die('Restricted access');
  */
 class BookingViewBooking extends JViewLegacy
 {
-	/**
-	 * View form
-	 *
-	 * @var $form
-	 */
+    /**
+     * @var null
+     * @since version
+     */
 	protected $form = null;
 
     /**
-     * @var $bookers
+     * @var null
+     * @since version
      */
     protected $bookers = null;
 
-	/**
-	 * Display the Booking view
-	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
-	 *
-	 * @return  void
-	 */
+    /**
+     * @param null $tpl
+     *
+     * @return bool
+     *
+     * @since version
+     */
 	public function display($tpl = null)
 	{
         $model = $this->getModel() ;
@@ -47,13 +47,11 @@ class BookingViewBooking extends JViewLegacy
             $this->item->date
         );
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			JError::raiseError(500, implode('<br />', $errors));
-
-			return false;
-		}
+        // Check for errors.
+        if (count($errors = $this->get('Errors'))) {
+            JError::raiseError(500, implode('<br />', $errors));
+            return false;
+        }
 
 
 		// Set the toolbar
@@ -79,12 +77,9 @@ class BookingViewBooking extends JViewLegacy
 
 		$isNew = ($this->item->id == 0);
 
-		if ($isNew)
-		{
+		if ($isNew) {
 			$title = JText::_('COM_BOOKING_MANAGER_BOOKING_NEW');
-		}
-		else
-		{
+		} else {
 			$title = JText::_('COM_BOOKING_MANAGER_BOOKING_EDIT');
 		}
 

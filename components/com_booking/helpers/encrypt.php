@@ -37,6 +37,9 @@ abstract class BookingHelperEncrypt
      */
     public static function isValid($key)
     {
+        /**
+         * basic validation to avoid useless query on db if key is not correct
+         */
         return strlen($key) === 40;
     }
 }

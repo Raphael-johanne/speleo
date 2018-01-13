@@ -22,13 +22,14 @@ class BookingControllerComfirmation extends JControllerForm
      *
      * @since version
      */
-    public function check(){
+    public function check()
+    {
         $key = $this->input->get('key');
 
         if ($this->isValid($key)) {
-            $booking = $this->getModel('booking')->getByKey(
-                $key
-            );
+            // will throw an exception, catched by joomla, if not exist
+            $booking = $this->getModel('booking')->getByKey($key);
+
             $this->getModel('booking')->updateComfirmed($booking->id);
             $this->setRedirect('index.php', JText::_('COM_BOOKING_SUBSCRIPTION_COMFIRMATION_MESSAGE'));
         } else {

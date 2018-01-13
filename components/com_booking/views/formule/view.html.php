@@ -24,7 +24,6 @@ class BookingViewFormule extends JViewLegacy
     /**
      * @param null $tpl
      *
-     * @return bool
      *
      * @since version
      */
@@ -38,8 +37,4 @@ class BookingViewFormule extends JViewLegacy
 
 		parent::display($tpl);
 	}
-
-	public function toto(){
-	    die('toto');
-    }
 }

@@ -13,7 +13,9 @@ defined('_JEXEC') or die;
 
 <?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_HELLO') ?>,
 <br />
+<br />
 <?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_INFO', $this->formule->name) ?> : <?php echo $this->formule->name ?>
+<br />
 <br />
 <ul>
     <li>

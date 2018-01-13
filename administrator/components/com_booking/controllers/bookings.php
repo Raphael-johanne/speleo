@@ -27,10 +27,11 @@ class BookingControllerBookings extends JControllerAdmin
 	 *
 	 * @since   1.6
 	 */
-	public function getModel($name = 'Booking', $prefix = 'BookingModel', $config = array('ignore_request' => true))
-	{
-		$model = parent::getModel($name, $prefix, $config);
-
-		return $model;
+	public function getModel(
+	    $name = 'Booking',
+        $prefix = 'BookingModel',
+        $config = ['ignore_request' => true]
+    ) {
+        return parent::getModel($name, $prefix, $config);
 	}
 }

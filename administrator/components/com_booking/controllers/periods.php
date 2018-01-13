@@ -27,10 +27,11 @@ class BookingControllerPeriods extends JControllerAdmin
 	 *
 	 * @since   1.6
 	 */
-	public function getModel($name = 'Period', $prefix = 'PeriodModel', $config = array('ignore_request' => true))
-	{
-		$model = parent::getModel($name, $prefix, $config);
-
-		return $model;
+	public function getModel(
+	    $name = 'Period',
+        $prefix = 'PeriodModel',
+        $config = ['ignore_request' => true]
+    ) {
+        return parent::getModel($name, $prefix, $config);
 	}
 }

@@ -27,10 +27,11 @@ class BookingControllerFormules extends JControllerAdmin
 	 *
 	 * @since   1.6
 	 */
-	public function getModel($name = 'Formule', $prefix = 'FormuleModel', $config = array('ignore_request' => true))
-	{
-		$model = parent::getModel($name, $prefix, $config);
-
-		return $model;
+	public function getModel(
+	    $name = 'Formule',
+        $prefix = 'FormuleModel',
+        $config = ['ignore_request' => true]
+    ) {
+        return parent::getModel($name, $prefix, $config);
 	}
 }

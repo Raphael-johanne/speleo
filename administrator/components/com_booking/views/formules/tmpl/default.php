@@ -14,13 +14,13 @@ defined('_JEXEC') or die('Restricted Access');
 	<table class="table table-striped table-hover">
 		<thead>
 		<tr>
-			<th width="1%"><?php echo JText::_('COM_BOOKING_NUM'); ?></th>
-			<th width="2%">
-				<?php echo JHtml::_('grid.checkall'); ?>
-			</th>
-			<th width="30%">
-				<?php echo JText::_('COM_BOOKING_FORMULE_NAME') ;?>
-			</th>
+            <th width="1%"><?php echo JText::_('COM_BOOKING_NUM'); ?></th>
+            <th width="2%">
+                <?php echo JHtml::_('grid.checkall'); ?>
+            </th>
+            <th width="30%">
+                <?php echo JText::_('COM_BOOKING_FORMULE_NAME') ;?>
+            </th>
             <th width="30%">
                 <?php echo JText::_('COM_BOOKING_FORMULE_MAX_ALLOWED_PERSON') ;?>
             </th>
@@ -38,10 +38,7 @@ defined('_JEXEC') or die('Restricted Access');
 		</tfoot>
 		<tbody>
 			<?php if (!empty($this->items)) : ?>
-				<?php foreach ($this->items as $i => $row) :
-					$link = JRoute::_('index.php?option=com_booking&task=formule.edit&id=' . $row->id);
-				?>
-
+				<?php foreach ($this->items as $i => $row) : ?>
 					<tr>
 						<td>
 							<?php echo $this->pagination->getRowOffset($i); ?>
@@ -50,7 +47,7 @@ defined('_JEXEC') or die('Restricted Access');
 							<?php echo JHtml::_('grid.id', $i, $row->id); ?>
 						</td>
 						<td>
-							<a href="<?php echo $link; ?>" title="<?php echo JText::_('COM_BOOKING_PERIOD_EDIT'); ?>">
+							<a href="<?php echo JRoute::_('index.php?option=com_booking&task=formule.edit&id=' . $row->id); ?>" title="<?php echo JText::_('COM_BOOKING_PERIOD_EDIT'); ?>">
 								<?php echo $row->name; ?>
 							</a>
 						</td>

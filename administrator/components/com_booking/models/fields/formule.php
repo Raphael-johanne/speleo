@@ -38,13 +38,11 @@ class JFormFieldFormule extends JFormFieldList
 		$query->select('id, name');
 		$query->from('#__formule');
 		$db->setQuery((string) $query);
-        $items = $db->loadObjectList();
-		$options  = array();
+		$items = $db->loadObjectList();
+		$options  = [];
 
-		if ($items)
-		{
-			foreach ($items as $item)
-			{
+		if ($items) {
+			foreach ($items as $item) {
 				$options[] = JHtml::_('select.option', $item->id, $item->name);
 			}
 		}

@@ -33,8 +33,7 @@ abstract class BookingHelperMailer
         $body,
         $isHtml = true,
         $sender = []
-    )
-    {
+    ) {
         $mailer = JFactory::getMailer();
         $config = JFactory::getConfig();
 

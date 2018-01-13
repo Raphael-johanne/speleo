@@ -78,8 +78,7 @@ class BookingControllerBooking extends JControllerForm
      */
     public function date() {
         $data = [
-            'howmuch' => (int) $this->input->getInt('howmuch'),
-            'unavailable_date' => []
+            'howmuch' => (int) $this->input->getInt('howmuch')
         ];
 
         $data['errors'] = $this->isValid($data);
@@ -128,8 +127,8 @@ class BookingControllerBooking extends JControllerForm
      */
     public function savedate() {
         $data = [
-            'howmuch' => (int) $this->input->getInt('howmuch'),
-            'date' => $this->input->getString('date')
+            'howmuch'   => (int) $this->input->getInt('howmuch'),
+            'date'      => $this->input->getString('date')
         ];
 
         $data['errors'] = $this->isValid($data);
@@ -143,8 +142,8 @@ class BookingControllerBooking extends JControllerForm
      * @since version
      */
     public function period() {
-        $howMuch = (int) $this->input->getInt('howmuch');
-        $date = $this->input->getString('date');
+        $howMuch    = (int) $this->input->getInt('howmuch');
+        $date       = $this->input->getString('date');
 
         $data = [
             'howmuch' => $howMuch,
@@ -155,7 +154,12 @@ class BookingControllerBooking extends JControllerForm
 
         if (empty($data['errors'])) {
             $view = $this->getBookingView();
-            $view->periods = $this->getModel('booking')->getAvailabePeriods($this->formule->id, $howMuch, date("Y-m-d", strtotime($date)));
+            $view->periods = $this->getModel('booking')->getAvailabePeriods(
+                $this->formule->id,
+                $howMuch,
+                date("Y-m-d", strtotime($date)
+                )
+            );
             $data['html'] =  $view->loadTemplate(self::PERIOD_TPL);
         }
 
@@ -169,9 +173,9 @@ class BookingControllerBooking extends JControllerForm
      */
     public function saveperiod() {
         $data = [
-            'howmuch' => (int) $this->input->getInt('howmuch'),
-            'date' => $this->input->getString('date'),
-            'period' => $this->input->getInt('period')
+            'howmuch'   => (int) $this->input->getInt('howmuch'),
+            'date'      => $this->input->getString('date'),
+            'period'    => $this->input->getInt('period')
         ];
 
         $data['errors'] = $this->isValid($data);
@@ -186,9 +190,9 @@ class BookingControllerBooking extends JControllerForm
      */
     public function form() {
         $data = [
-            'howmuch' => (int) $this->input->getInt('howmuch'),
-            'date' => $this->input->getString('date'),
-            'period' => (int) $this->input->getInt('period'),
+            'howmuch'   => (int) $this->input->getInt('howmuch'),
+            'date'      => $this->input->getString('date'),
+            'period'    => (int) $this->input->getInt('period'),
         ];
 
         $data['errors'] = $this->isValid($data);
@@ -208,15 +212,15 @@ class BookingControllerBooking extends JControllerForm
      */
     public function saveform() {
         $data = [
-            'formule_id' => (int) $this->formule->id,
-            'howmuch' => (int) $this->input->getInt('howmuch'),
-            'date' => $this->input->getString('date'),
-            'period' => (int) $this->input->getInt('period'),
+            'formule_id'    => (int) $this->formule->id,
+            'howmuch'       => (int) $this->input->getInt('howmuch'),
+            'date'          => $this->input->getString('date'),
+            'period'        => (int) $this->input->getInt('period'),
             'form' => [
                 'firstname' =>  $this->input->getString('firstname'),
-                'lastname' =>  $this->input->getString('lastname'),
-                'email' =>  $this->input->getString('email'),
-                'phone' =>  $this->input->getString('phone')
+                'lastname'  =>  $this->input->getString('lastname'),
+                'email'     =>  $this->input->getString('email'),
+                'phone'     =>  $this->input->getString('phone')
             ]
         ];
 
@@ -266,7 +270,7 @@ class BookingControllerBooking extends JControllerForm
      * @since version
      */
     public function success() {
-        $data = ['errors' => []];
+        $data = [];
         $view = $this->getBookingView();
         $data['html'] =  $view->loadTemplate(self::SUCCESS_TPL);
 

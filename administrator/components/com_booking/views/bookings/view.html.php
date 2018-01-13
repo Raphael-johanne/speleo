@@ -17,13 +17,13 @@ defined('_JEXEC') or die('Restricted access');
  */
 class BookingViewBookings extends JViewLegacy
 {
-	/**
-	 * Display Bookings view
-	 *
-	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
-	 *
-	 * @return  void
-	 */
+    /**
+     * @param null $tpl
+     *
+     * @return bool
+     *
+     * @since version
+     */
 	function display($tpl = null)
 	{
 		// Get data from the model
@@ -31,8 +31,7 @@ class BookingViewBookings extends JViewLegacy
 		$this->pagination	= $this->get('Pagination');
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
+		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode('<br />', $errors));
 
 			return false;

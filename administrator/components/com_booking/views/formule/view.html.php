@@ -37,8 +37,7 @@ class BookingViewFormule extends JViewLegacy
 		$this->item = $this->get('Item');
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
+		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode('<br />', $errors));
 
 			return false;
@@ -68,12 +67,9 @@ class BookingViewFormule extends JViewLegacy
 
 		$isNew = ($this->item->id == 0);
 
-		if ($isNew)
-		{
+		if ($isNew) {
 			$title = JText::_('COM_BOOKING_MANAGER_BOOKING_NEW');
-		}
-		else
-		{
+		} else {
 			$title = JText::_('COM_BOOKING_MANAGER_BOOKING_EDIT');
 		}
 

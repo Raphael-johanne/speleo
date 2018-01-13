@@ -41,10 +41,7 @@ defined('_JEXEC') or die('Restricted Access');
 		</tfoot>
 		<tbody>
 			<?php if (!empty($this->items)) : ?>
-				<?php foreach ($this->items as $i => $row) :
-					$link = JRoute::_('index.php?option=com_booking&task=booking.edit&id=' . $row->id);
-				?>
-
+				<?php foreach ($this->items as $i => $row) : ?>
 					<tr>
 						<td>
 							<?php echo $this->pagination->getRowOffset($i); ?>
@@ -53,7 +50,7 @@ defined('_JEXEC') or die('Restricted Access');
 							<?php echo JHtml::_('grid.id', $i, $row->id); ?>
 						</td>
 						<td>
-							<a href="<?php echo $link; ?>" title="<?php echo JText::_('COM_BOOKING_EDIT_BOOKING'); ?>">
+							<a href="<?php echo JRoute::_('index.php?option=com_booking&task=booking.edit&id=' . $row->id); ?>" title="<?php echo JText::_('COM_BOOKING_EDIT_BOOKING'); ?>">
 								<?php echo $row->date; ?>
 							</a>
 						</td>
@@ -66,7 +63,6 @@ defined('_JEXEC') or die('Restricted Access');
 						<td>
 							<?php echo $row->totalPrice; ?>
 						</td>
-					
 					</tr>
 				<?php endforeach; ?>
 			<?php endif; ?>

@@ -210,8 +210,8 @@ class BookingModelBooking extends JModelItem
     public function updateComfirmed($bookingId){
         $db    = JFactory::getDBO();
 
-        $query = $db->getQuery(true);
-        $fields[] = 'is_comfirmed = 1';
+        $query      = $db->getQuery(true);
+        $fields[]   = 'is_comfirmed = 1';
 
         $query->update('#__booking')
         ->set($fields)
