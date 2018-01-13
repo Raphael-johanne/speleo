@@ -287,11 +287,7 @@ defined('_JEXEC') or die;
             };
 
             this.ajaxCall('success', data, function (result) {
-                if (result.errors.length > 0) {
-                    this.addErrors(result.errors);
-                } else {
-                    this.setContainerContent(result.html);
-                }
+                this.setContainerContent(result.html);
             }.bind(this));
         },
         ajaxCall: function(action, params, callback){
