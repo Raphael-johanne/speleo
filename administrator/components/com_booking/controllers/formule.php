@@ -36,7 +36,6 @@ class BookingControllerFormule extends JControllerForm
 
         $query->delete($db->quoteName('#__formule_period'));
         $query->where($db->quoteName('formule_id') . ' = ' . (int) $itemId);
-
         $db->setQuery($query);
         $db->query();
 
@@ -48,9 +47,7 @@ class BookingControllerFormule extends JControllerForm
 
         $query->insert($db->quoteName('#__formule_period'));
         $query->columns($columns);
-
         $query->values($values);
-
         $db->setQuery($query);
         $db->query();
     }

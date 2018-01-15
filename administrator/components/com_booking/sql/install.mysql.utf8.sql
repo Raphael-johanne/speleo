@@ -34,10 +34,6 @@ CREATE TABLE `speleo_booking` (
 
 CREATE TABLE `speleo_formule` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255) NOT NULL,
-	`short_description` TEXT NOT NULL,
-	`description` TEXT NOT NULL,
-	`program` TEXT NOT NULL,
 	`price` float(5) NOT NULL,
 	`min_person_allowed` INT(11) NOT NULL,
 	`max_person_allowed` INT(11) NOT NULL,
@@ -71,6 +67,20 @@ CREATE TABLE `speleo_formule_period` (
 	`period_id` INT(11) NOT NULL,
 	FOREIGN KEY (`formule_id`) REFERENCES speleo_formule(id),
 	FOREIGN KEY (`period_id`) REFERENCES speleo_period(id)
+)
+	ENGINE =InnoDB
+	AUTO_INCREMENT =0
+	DEFAULT CHARSET =utf8;
+
+CREATE TABLE `speleo_formule_localized` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`formule_id` INT(11) NOT NULL,
+	`lang_id` INT(11) NOT NULL,
+	`name` VARCHAR(255) NOT NULL,
+	`short_description` TEXT NOT NULL,
+	`description` TEXT NOT NULL,
+	`program` TEXT NOT NULL,
+	PRIMARY KEY (`id`)
 )
 	ENGINE =InnoDB
 	AUTO_INCREMENT =0
