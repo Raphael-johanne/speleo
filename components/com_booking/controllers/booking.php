@@ -85,39 +85,11 @@ class BookingControllerBooking extends JControllerForm
 
         if (empty($data['errors'])) {
             $view = $this->getBookingView();
-            $data['unavailable_date'] = $this->getUnavailableDates($data['howmuch']);
+            $data['available_date'] =  $this->getModel('booking')->getAvailableDates($this->formule->id, $data['howmuch']);
             $data['html'] =  $view->loadTemplate(self::DATE_TPL);
         }
 
         return $this->sendResonse($data);
-    }
-
-    /**
-     * @param $howMuch
-     *
-     * @return array
-     *
-     * @since version
-     */
-    private function getUnavailableDates($howMuch) {
-        $return = [];
-        if ($unavailableDates = $this->getModel('booking')->getUnavailabeDate($howMuch)) {
-            $treated = [];
-            foreach ($unavailableDates as $unavailableDate) {
-                /*
-                 * bad implementation find a better way to limit date by date AND period for jquery calandar
-                 * in this case we allow only two periods but it must be editable in BO to add or remove
-                 * periods for the formules, it is not a blocking point but could be in the future
-                 */
-                if (isset($treated[$unavailableDate->date])
-                    && $treated[$unavailableDate->date] === true) {
-                    $return[] = $unavailableDate->date;
-                } else {
-                    $treated[$unavailableDate->date] = true;
-                }
-            }
-        }
-        return $return;
     }
 
     /**
@@ -156,10 +128,10 @@ class BookingControllerBooking extends JControllerForm
             $view = $this->getBookingView();
             $view->periods = $this->getModel('booking')->getAvailabePeriods(
                 $this->formule->id,
-                $howMuch,
                 date("Y-m-d", strtotime($date)
                 )
             );
+
             $data['html'] =  $view->loadTemplate(self::PERIOD_TPL);
         }
 
@@ -329,21 +301,11 @@ class BookingControllerBooking extends JControllerForm
             if (empty($data['date'])) {
                 $errors[] = JText::_('COM_BOOKING_ERROR_WHEN');
             } else {
-                $now = new DateTime('NOW');
                 $date = new DateTime($data['date']);
 
-                if ($now > $date) {
+                $availableDates = $this->getModel('booking')->getAvailableDates($this->formule->id, $data['howmuch']);
+                if (!in_array($date->format('Y-m-d'), $availableDates)) {
                     $errors[] = JText::_('COM_BOOKING_ERROR_WHEN');
-                }
-
-
-                if ($unavailableDates = $this->getUnavailableDates($data['howmuch'])) {
-                    foreach ($unavailableDates as $unavailableDate) {
-                        if ($date->format('Y-m-d') == $unavailableDate->date) {
-                            $errors[] = JText::_('COM_BOOKING_ERROR_WHEN');
-                            break;
-                        }
-                    }
                 }
             }
         }

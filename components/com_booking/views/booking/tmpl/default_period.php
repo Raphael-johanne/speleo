@@ -17,4 +17,3 @@ defined('_JEXEC') or die;
     <option value="<?php echo $period->id ?>"><?php echo $period->name ?>&nbsp;-&nbsp;<?php echo $period->hour ?></option>
 <?php endforeach; ?>
 </select>
-<a href="#" id="period-save"><?php echo JText::_('COM_BOOKING_NEXT') ?></a>

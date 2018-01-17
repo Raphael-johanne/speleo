@@ -47,6 +47,4 @@ class BookingModelPeriod extends JModelItem
 
         return ArrayHelper::toObject($properties, 'JObject');
 	}
-
-
 }

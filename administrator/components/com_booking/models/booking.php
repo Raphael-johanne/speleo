@@ -92,12 +92,13 @@ class BookingModelBooking extends JModelAdmin
      *
      * @since version
      */
-    public function getBookers($periodId, $date)
+    public function getBookers($formuleId, $periodId, $date)
     {
         $db    = JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->select('b.*');
         $query->from('#__booking b')
+            ->where('b.formule_id = ' . (int) $formuleId)
             ->where('b.period_id = ' . (int) $periodId)
             ->where('b.date = ' .  $db->quote($date));
         $db->setQuery((string) $query);
@@ -113,7 +114,7 @@ class BookingModelBooking extends JModelAdmin
      */
     public function updateBookersState(array $bookers)
     {
-        $db    = JFactory::getDBO();
+        $db = JFactory::getDBO();
 
         foreach ($bookers as $bookingId => $bookerState) {
             $fields = [];

@@ -6,6 +6,14 @@
 				type="hidden"
 				/>
 		<field
+				name="sys_name"
+				type="text"
+				label="COM_BOOKING_FORMULE_NAME"
+				size="40"
+				class="inputbox"
+				default=""
+		/>
+		<field
 				name="period_ids"
 				type="period"
 				label="COM_BOOKING_FORMULE_PERIOD_IDS"
@@ -50,54 +58,6 @@
 				size="40"
 				class="inputbox"
 				default=""
-		/>
-		<field
-				name="name[fr_FR]"
-				type="text"
-				label="COM_BOOKING_FORMULE_NAME"
-				size="40"
-				class="inputbox"
-				default=""
-		/>
-		<field
-				name="name[en_GB]"
-				type="text"
-				label="COM_BOOKING_FORMULE_NAME"
-				size="40"
-				class="inputbox"
-				default=""
-		/>
-		<field
-				name="description[fr_FR]"
-				type="editor"
-				label="COM_BOOKING_FORMULE_DESCRIPTION"
-				size="40"
-				class="textarea"
-				default=""
-		/>
-		<field
-				name="description[en_GB]"
-				type="editor"
-				label="COM_BOOKING_FORMULE_DESCRIPTION"
-				size="40"
-				class="textarea"
-				default=""
-		/>
-		<field
-				name="program[fr_FR]"
-				type="editor"
-				label="COM_BOOKING_FORMULE_PROGRAM"
-				size="40"
-				class="textarea"
-				default=""
-		/>
-		<field
-				name="program[en_GB]"
-				type="editor"
-				label="COM_BOOKING_FORMULE_PROGRAM"
-				size="40"
-				class="textarea"
-				default=""
-		/>
+				/>
 	</fieldset>
 </form>

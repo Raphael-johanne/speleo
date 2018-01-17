@@ -30,7 +30,7 @@ class BookingControllerComfirmation extends JControllerForm
             // will throw an exception, catched by joomla, if not exist
             $booking = $this->getModel('booking')->getByKey($key);
 
-            $this->getModel('booking')->updateComfirmed($booking->id);
+            $this->getModel('booking')->update($booking->id);
             $this->setRedirect('index.php', JText::_('COM_BOOKING_SUBSCRIPTION_COMFIRMATION_MESSAGE'));
         } else {
             $this->setRedirect('index.php', JText::_('COM_BOOKING_SUBSCRIPTION_FAIL_MESSAGE'));

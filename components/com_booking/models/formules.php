@@ -16,24 +16,8 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class BookingModelFormules extends JModelItem
+class BookingModelFormules extends BookingFormule
 {
-	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $type    The table name. Optional.
-	 * @param   string  $prefix  The class prefix. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
-	 *
-	 * @return  JTable  A JTable object
-	 *
-	 * @since   1.6
-	 */
-	public function getTable($type = 'Formule', $prefix = 'BookingTable', $config = array())
-	{
-		return JTable::getInstance($type, $prefix, $config);
-	}
-
     /**
      *
      * @return mixed
@@ -42,12 +26,27 @@ class BookingModelFormules extends JModelItem
      */
 	public function getFormules()
 	{
-        $db    = $this->getDbo();
-        $query = $db->getQuery(true);
-        $query->select('f.*');
-        $query->from('#__formule f')
-            ->where('f.is_published = 1')
-            ->order ('f.order DESC');
+        $db         = $this->getDbo();
+        $query      = $db->getQuery(true);
+        $language   = JFactory::getLanguage();
+
+        list($selects, $lefts) = BookingHelperLocalized::localized(
+            parent::NAME_ATTRIBUTE,
+            parent::ENTITY_TYPE,
+            $language->getTag()
+        );
+
+        $selects[] = 'main.*';
+
+        $query->select($selects);
+        $query->from('#__formule main')
+            ->where('main.is_published = 1')
+            ->order ('main.order DESC');
+
+        foreach ($lefts as $left) {
+            $query->join('LEFT', $left);
+        }
+
         $db->setQuery((string) $query);
         return $db->loadObjectList();
 	}

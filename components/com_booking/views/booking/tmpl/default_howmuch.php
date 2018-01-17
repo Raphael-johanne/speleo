@@ -17,4 +17,3 @@ defined('_JEXEC') or die;
         <option value="<?php echo $i ?>"><?php echo $i ?></option>
     <?php endfor; ?>
 </select>
-<a href="#" id="howmuch-save"><?php echo JText::_('COM_BOOKING_NEXT') ?></a>

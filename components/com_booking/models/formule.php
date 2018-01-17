@@ -16,42 +16,44 @@ use Joomla\Utilities\ArrayHelper;
  *
  * @since  0.0.1
  */
-class BookingModelFormule extends JModelItem
+class BookingModelFormule extends BookingFormule
 {
-	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $type    The table name. Optional.
-	 * @param   string  $prefix  The class prefix. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
-	 *
-	 * @return  JTable  A JTable object
-	 *
-	 * @since   1.6
-	 */
-	public function getTable($type = 'Formule', $prefix = 'BookingTable', $config = array())
-	{
-		return JTable::getInstance($type, $prefix, $config);
-	}
-
     /**
      * @param $id
      *
-     * @return object
+     * @return mixed
      *
      * @since version
-     * @throws Exception
      */
-	public function getFormule($id)
-	{
-        $table = $this->getTable();
-        $table->load($id);
-        $properties = $table->getProperties(1);
+    public function getFormule($id)
+    {
+        $db    = $this->getDbo();
+        $query = $db->getQuery(true);
+        $language = JFactory::getLanguage();
 
-        if (null === $properties['id']) {
-            throw new Exception('Formule does not exist');
+        list($selects, $lefts) = BookingHelperLocalized::localized(
+            $this->getAttributes(),
+            parent::ENTITY_TYPE,
+            $language->getTag()
+        );
+        
+        $selects[] = 'main.*';
+
+        $query->select($selects);
+        $query->from('#__formule main')
+            ->where('main.is_published = 1')
+            ->where(
+                sprintf('main.id = %d',
+                   (int) $id
+                )
+            )
+            ->order ('main.order DESC');
+
+        foreach ($lefts as $left) {
+            $query->join('LEFT', $left);
         }
 
-        return ArrayHelper::toObject($properties, 'JObject');
-	}
+        $db->setQuery((string) $query);
+        return $db->loadObject();
+    }
 }

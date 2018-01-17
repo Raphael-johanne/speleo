@@ -28,6 +28,20 @@ defined('_JEXEC') or die('Restricted access');
             </div>
         </fieldset>
     </div>
+    <?php if ($this->item->id > 0) : ?>
+        <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+        <?php foreach ($this->item->attributes as $locale => $fields): ?>
+            <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'locale_' . $locale, JText::_('COM_BOOKING_LOCALIZED', true) . ': ' .$locale); ?> 
+                <?php foreach ($fields as $code => $value): ?>
+                <div class="control-group ">
+                    <label><?php echo $code ?></label>
+                    <textarea class="mceAdvanced" name="attributes[<?php echo $locale ?>][<?php echo $code ?>]"><?php echo $value ?></textarea>
+                </div>
+                <?php endforeach; ?>
+                <?php echo JHtml::_('bootstrap.endTab'); ?>   
+        <?php endforeach; ?>
+        <?php echo JHtml::_('bootstrap.endTabSet'); ?>
+    <?php endif; ?>
     <input type="hidden" name="task" value="period.edit" />
     <?php echo JHtml::_('form.token'); ?>
 </form>

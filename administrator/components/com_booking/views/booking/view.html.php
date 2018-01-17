@@ -43,6 +43,7 @@ class BookingViewBooking extends JViewLegacy
 		$this->form     = $this->get('Form');
 		$this->item     = $this->get('Item');
         $this->bookers  = $model->getBookers(
+            $this->item->formule_id,
             $this->item->period_id,
             $this->item->date
         );
@@ -52,7 +53,6 @@ class BookingViewBooking extends JViewLegacy
             JError::raiseError(500, implode('<br />', $errors));
             return false;
         }
-
 
 		// Set the toolbar
 		$this->addToolBar();

@@ -13,4 +13,3 @@ defined('_JEXEC') or die;
 
 <h3><?php echo JText::_('COM_BOOKING_WHEN') ?></h3>
 <div id="datepicker"></div>
-<a href="#" id="date-save"><?php echo JText::_('COM_BOOKING_NEXT') ?></a>

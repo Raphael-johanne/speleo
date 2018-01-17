@@ -18,4 +18,17 @@ defined('_JEXEC') or die('Restricted access');
  */
 class BookingControllerPeriod extends JControllerForm
 {
+	/**
+     * @param $model
+     * @param $validData
+     *
+     *
+     * @since version
+     */
+    protected function postSaveHook($model, $validData) {
+        $item       = $model->getItem();
+        $itemId     = $item->get('id');
+        $attributes = JRequest::getVar('attributes', []);
+        $model->updateLocalized($itemId, $attributes);
+    }
 }

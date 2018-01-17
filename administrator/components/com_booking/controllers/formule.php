@@ -26,29 +26,13 @@ class BookingControllerFormule extends JControllerForm
      * @since version
      */
     protected function postSaveHook($model, $validData) {
-        $item       = $model->getItem();
-        $itemId     = $item->get('id');
-        $values     = [];
-        $db         = JFactory::getDbo();
-        $columns    = ['formule_id','period_id'];
-
-        $query = $db->getQuery(true);
-
-        $query->delete($db->quoteName('#__formule_period'));
-        $query->where($db->quoteName('formule_id') . ' = ' . (int) $itemId);
-        $db->setQuery($query);
-        $db->query();
-
-        $query = $db->getQuery(true);
-
-        foreach ($validData['period_ids'] as $periodId) {
-            $values[] = (int) $itemId .', '.(int) $periodId;
-        }
-
-        $query->insert($db->quoteName('#__formule_period'));
-        $query->columns($columns);
-        $query->values($values);
-        $db->setQuery($query);
-        $db->query();
+        $item               = $model->getItem();
+        $itemId             = $item->get('id');
+        $attributes         = JRequest::getVar('attributes', []);
+        $availableDates     = JRequest::getVar('available_dates', []);
+       
+        $model->updateLocalized($itemId, $attributes);
+        $model->updatePeriods($itemId, $validData);
+        $model->updateAvailableDates($itemId, $availableDates, $validData);
     }
 }

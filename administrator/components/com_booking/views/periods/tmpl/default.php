@@ -46,7 +46,7 @@ defined('_JEXEC') or die('Restricted Access');
 						</td>
 						<td>
 							<a href="<?php echo  JRoute::_('index.php?option=com_booking&task=period.edit&id=' . $row->id); ?>" title="<?php echo JText::_('COM_BOOKING_PERIOD_EDIT'); ?>">
-								<?php echo $row->name; ?>
+								<?php echo $row->sys_name; ?>
 							</a>
 						</td>
 						<td>
