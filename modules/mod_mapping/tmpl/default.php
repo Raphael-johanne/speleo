@@ -20,10 +20,11 @@ $document->addStyleDeclaration($style);
 		var infowindow = new google.maps.InfoWindow();
 		var markers = new Array();
 		var map = new google.maps.Map(document.getElementById('map'), {});
+		var image_path = '/speleo/modules/mod_mapping/images/';
 		var icons = {
-			'1' : {icon : 'http://speleo.local/speleo/modules/mod_mapping/images/speleoIcon1.png'},
-			'2' : {icon : 'http://speleo.local/speleo/modules/mod_mapping/images/speleoIcon2.png'},
-			'3' : {icon : 'http://speleo.local/speleo/modules/mod_mapping/images/speleoIcon3.png'}
+			'1' : {icon : image_path + 'speleoIcon1.png'},
+			'2' : {icon : image_path + 'speleoIcon2.png'},
+			'3' : {icon : image_path + 'speleoIcon3.png'}
 		}
 
 		// main loop creating and placing the markers
@@ -38,7 +39,7 @@ $document->addStyleDeclaration($style);
 
     	// marker clusterization
 		var markerCluster = new MarkerClusterer(map, markers,
-			{imagePath: 'http://speleo.local/speleo/modules/mod_mapping/images/m'}
+			{imagePath: image_path + 'm'}
 		);
 
 		// adjust the map to the marker set
@@ -72,5 +73,5 @@ $document->addStyleDeclaration($style);
 				'</div>';
 	}
 </script>
-<script src="http://speleo.local/speleo/modules/mod_mapping/src/markerclusterer.js"></script>
+<script src="/speleo/modules/mod_mapping/src/markerclusterer.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo $gkey?>&callback=initMap"></script>
