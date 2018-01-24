@@ -27,6 +27,46 @@ class BookingControllerBooking extends JControllerForm
      */
     protected function postSaveHook($model, $validData) {
         $bookers = JRequest::getVar('bookers', []);
-        $model->updateBookersState($bookers);
+        
+        foreach ($bookers as $bookingId => $booker) {
+
+            $fields = [];
+          
+
+            foreach (['is_comfirmed', 'is_canceled', 'is_private'] as $state) {
+                $stateValue = isset($booker[$state]) ? 1 : 0;
+                $fields[] = $state . ' = ' . $stateValue;
+
+                if (isset($booker['sent_email'])) {
+                    $this->sendEmailNotification($bookingId, $state);
+                }
+            }
+
+            $model->update($bookingId, $fields);
+
+            /**
+            * update availibility for the formule
+            */
+            BookingAvailibility::update($bookingId, $fields);
+        }
+    }
+
+    /**
+     * @param $bookingId
+     * @param $state
+     *
+     * @todo
+     *
+     * @since version
+     */
+    private function sendEmailNotification($bookingId, $state) {
+        switch ($state) {
+            case 'is_comfirmed':
+                
+            break;
+            case 'is_canceled':
+
+            break;
+        }
     }
 }

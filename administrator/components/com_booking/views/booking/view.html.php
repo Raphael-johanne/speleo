@@ -38,7 +38,7 @@ class BookingViewBooking extends JViewLegacy
      */
 	public function display($tpl = null)
 	{
-        $model = $this->getModel() ;
+        $model = $this->getModel('booking') ;
 		// Get the Data
 		$this->form     = $this->get('Form');
 		$this->item     = $this->get('Item');
@@ -84,6 +84,7 @@ class BookingViewBooking extends JViewLegacy
 		}
 
 		JToolbarHelper::title($title, 'booking');
+		JToolbarHelper::apply('booking.apply');
 		JToolbarHelper::save('booking.save');
 		JToolbarHelper::cancel(
 			'booking.cancel',

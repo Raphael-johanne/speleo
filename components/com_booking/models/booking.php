@@ -16,24 +16,8 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class BookingModelBooking extends JModelItem
+class BookingModelBooking extends BookingAvailibility
 {
-	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $type    The table name. Optional.
-	 * @param   string  $prefix  The class prefix. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
-	 *
-	 * @return  JTable  A JTable object
-	 *
-	 * @since   1.6
-	 */
-	public function getTable($type = 'Booking', $prefix = 'BookingTable', $config = array())
-	{
-		return JTable::getInstance($type, $prefix, $config);
-	}
-
     /**
      * @param $formuleId
      *
@@ -126,61 +110,6 @@ class BookingModelBooking extends JModelItem
         }
 
         return $booking;
-    }
-
-    /**
-     * @param $bookingId
-     *
-     *
-     * @since version
-     */
-    public function update($bookingId){
-        $db    = JFactory::getDBO();
-        $fields = [];
-        $query      = $db->getQuery(true);
-        $fields[]   = 'is_comfirmed = 1';
-        $query->update('#__booking')
-        ->set($fields)
-        ->where('id = ' . (int) $bookingId);
-        $db->setQuery($query);
-        $db->execute();
-
-        /**
-        * select the current booking information
-        */
-        $query      = $db->getQuery(true);
-        $query->select(['b.formule_id', 'b.period_id', 'b.date'])
-            ->from($db->quoteName('#__booking', 'b'))
-            ->where('b.id = ' . (int) $bookingId );
-
-        $db->setQuery($query);
-        $booking = $db->loadObject();
-
-        /**
-        * get remaining places for current formule / day / period
-        */
-        $query      = $db->getQuery(true);
-        $query->select(['SUM(nbr_person) as place_remaining'])
-            ->from($db->quoteName('#__booking'))
-            ->where('formule_id = ' . (int) $booking->formule_id )
-            ->where('period_id = ' . (int) $booking->period_id )
-            ->where('is_comfirmed = 1' )
-            ->where('date = ' .  $db->quote($booking->date));
-
-        $db->setQuery($query);
-        $placeRamaining = $db->loadColumn();
-
-        $query  = $db->getQuery(true);
-        $fields = ['place_remaining = place_remaining - ' . (int) $placeRamaining[0]];
-       
-        $query->update('#__formule_date')
-            ->set($fields)
-            ->where('formule_id = ' . (int) $booking->formule_id )
-            ->where('period_id = ' . (int) $booking->period_id )
-            ->where('date = ' . $db->quote($booking->date));
-
-        $db->setQuery($query);
-        $db->execute();    
     }
 
     /**

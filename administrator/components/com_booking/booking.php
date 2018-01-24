@@ -11,6 +11,7 @@ require_once JPATH_COMPONENT_SITE . '/helpers/localized.php';
 require_once JPATH_COMPONENT_SITE . '/models/BookingFormule.php';
 require_once JPATH_COMPONENT_SITE . '/models/BookingPeriod.php';
 require_once JPATH_COMPONENT . '/models/trait/localized.php';
+require_once JPATH_COMPONENT_SITE . '/models/BookingAvailibility.php';
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');

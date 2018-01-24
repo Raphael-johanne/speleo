@@ -74,6 +74,7 @@ class BookingViewFormule extends JViewLegacy
 		}
 
 		JToolbarHelper::title($title, 'booking');
+		JToolbarHelper::apply('formule.apply');
 		JToolbarHelper::save('formule.save');
 		JToolbarHelper::cancel(
 			'formule.cancel',
