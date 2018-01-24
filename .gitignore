@@ -11,6 +11,7 @@
 /components/*
 !/components/com_booking
 !/modules/
+/modules/mod_mapping/src/gkey.php
 !/templates/
 !/plugins/
 !/language/
