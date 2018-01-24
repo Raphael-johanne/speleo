@@ -1,6 +1,6 @@
 <?php 
 // No direct access
-defined('_JEXEC') or die; 
+defined('_JEXEC') or die;
 ?>
 
 <?php // adding style
@@ -70,4 +70,4 @@ $document->addStyleDeclaration($style);
 	}
 </script>
 <script src="http://speleo.local/speleo/modules/mod_mapping/src/markerclusterer.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=  AIzaSyCqUJdQh4n_YWqFATHgC1mcn2vbK_52dJA&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo $gkey?>&callback=initMap"></script>
