@@ -17,6 +17,8 @@ defined('_JEXEC') or die('Restricted access');
  */
 class BookingModelPeriod extends JModelAdmin
 {
+	use localized;
+
 	/**
 	 * Method to get a table object, load it if necessary.
 	 *
@@ -62,6 +64,14 @@ class BookingModelPeriod extends JModelAdmin
 		return $form;
 	}
 
+	public function updateLocalized($id, $attributes) {
+		$this->saveLocalized(
+			$id,
+			BookingPeriod::ENTITY_TYPE,
+			$attributes
+		);
+    }
+
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
@@ -83,4 +93,58 @@ class BookingModelPeriod extends JModelAdmin
 
 		return $data;
 	}
+
+    /**
+     *
+     * @return mixed
+     *
+     * @since version
+     */
+	public function getItem() {
+		$item = parent::getItem();
+        $item->attributes   = [];
+
+        $language = JFactory::getLanguage();
+        $locales = array_keys($language->getKnownLanguages());
+
+        foreach ($locales as $locale) {
+			$item->attributes[$locale]	= $this->getAttributes($item->id, $locale);
+        }
+
+        return $item;
+	}
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     *
+     * @since version
+     */
+    protected function getAttributes($id, $locale)
+    {
+        $db    = $this->getDbo();
+        $query = $db->getQuery(true);
+
+        list($selects, $lefts) = BookingHelperLocalized::localized(
+            BookingPeriod::getAttributes(),
+            BookingPeriod::ENTITY_TYPE,
+            $locale
+        );
+
+        $query->select($selects);
+        $query->from('#__period main')
+            ->where(
+                sprintf('main.id = %d',
+                    (int) $id
+                )
+            );
+
+        foreach ($lefts as $left) {
+            $query->join('LEFT', $left);
+        }
+		
+        $db->setQuery((string) $query);
+        return $db->loadObject();
+    }
 }

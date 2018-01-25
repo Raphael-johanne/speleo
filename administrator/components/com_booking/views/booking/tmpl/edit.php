@@ -40,6 +40,9 @@ defined('_JEXEC') or die('Restricted access');
                         <span class="acl-action"><?php echo JText::_('COM_BOOKING_BOOKING_NBR_PERSON'); ?></span>
                     </th>
                     <th class="actions" id="actions-th1">
+                        <span class="acl-action"><?php echo JText::_('COM_BOOKING_BOOKING_CREATION_DATE'); ?></span>
+                    </th>
+                    <th class="actions" id="actions-th1">
                         <span class="acl-action"><?php echo JText::_('COM_BOOKING_BOOKING_FIRSTNAME'); ?></span>
                     </th>
                     <th class="actions" id="actions-th1">
@@ -75,6 +78,9 @@ defined('_JEXEC') or die('Restricted access');
                     <th class="actions" id="actions-th1">
                         <span class="acl-action"><?php echo JText::_('COM_BOOKING_BOOKING_IS_CANCELED'); ?></span>
                     </th>
+                    <th class="actions" id="actions-th1">
+                        <span class="acl-action"><?php echo JText::_('COM_BOOKING_BOOKING_SENT_NOTIFICATION_EMAIL'); ?></span>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -83,6 +89,11 @@ defined('_JEXEC') or die('Restricted access');
                         <td headers="actions-th1">
                             <label>
                                 <?php echo $booker->nbr_person ?>
+                            </label>
+                        </td>
+                        <td headers="actions-th1">
+                            <label>
+                                <?php echo $booker->cdate ?>
                             </label>
                         </td>
                         <td headers="actions-th1">
@@ -138,6 +149,9 @@ defined('_JEXEC') or die('Restricted access');
                         </td>
                         <td headers="settings-th1">
                             <input <?php echo $booker->is_canceled == 1 ? "checked": "" ?> type="checkbox" name="bookers[<?php echo $booker->id?>][is_canceled]" />
+                        </td>
+                        <td headers="settings-th1">
+                            <input type="checkbox" name="bookers[<?php echo $booker->id?>][sent_email]" />
                         </td>
                     </tr>
                 <?php endforeach; ?>

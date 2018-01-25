@@ -92,12 +92,13 @@ class BookingModelBooking extends JModelAdmin
      *
      * @since version
      */
-    public function getBookers($periodId, $date)
+    public function getBookers($formuleId, $periodId, $date)
     {
         $db    = JFactory::getDBO();
         $query = $db->getQuery(true);
         $query->select('b.*');
         $query->from('#__booking b')
+            ->where('b.formule_id = ' . (int) $formuleId)
             ->where('b.period_id = ' . (int) $periodId)
             ->where('b.date = ' .  $db->quote($date));
         $db->setQuery((string) $query);
@@ -111,26 +112,17 @@ class BookingModelBooking extends JModelAdmin
      *
      * @since version
      */
-    public function updateBookersState(array $bookers)
+    public function update($bookingId, $fields)
     {
-        $db    = JFactory::getDBO();
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
 
-        foreach ($bookers as $bookingId => $bookerState) {
-            $fields = [];
-            $query = $db->getQuery(true);
+        $query->update('#__booking b')
+            ->set($fields)
+            ->where('b.id = ' . (int) $bookingId);
 
-            foreach (['is_comfirmed', 'is_canceled', 'is_private'] as $state) {
-                $stateValue = isset($bookerState[$state]) ? 1 : 0;
-                $fields[] = $db->quoteName($state) . ' = ' . $stateValue;
-            }
+        $db->setQuery($query);
 
-            $query->update('#__booking b')
-                ->set($fields)
-                ->where('b.id = ' . (int) $bookingId);
-
-            $db->setQuery($query);
-
-            $db->execute();
-        }
+        $db->execute();
     }
 }

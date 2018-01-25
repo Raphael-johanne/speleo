@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
  *
  * @since  1.5
  */
-abstract class BookingHelperMailer
+class BookingHelperMailer
 {
     /**
      * @param $subject

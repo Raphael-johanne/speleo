@@ -58,7 +58,7 @@ defined('_JEXEC') or die('Restricted Access');
                             <?php echo $row->periodName; ?>
                         </td>
 						<td>
-							<?php echo $row->name; ?>
+							<?php echo $row->sys_name; ?>
 						</td>
 						<td>
 							<?php echo $row->totalPrice; ?>

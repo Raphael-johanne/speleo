@@ -11,9 +11,10 @@ defined('_JEXEC') or die;
 
 ?>
 
-<h3><?php echo JText::_('COM_BOOKING_HOW_MUCH_PERSON') ?></h3>
-<select id="howmuch">
-    <?php for ($i = 1; $i <= $this->formule->max_person_allowed; $i++) : ?>
-        <option value="<?php echo $i ?>"><?php echo $i ?></option>
-    <?php endfor; ?>
-</select>
+<?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_HELLO') ?>,
+<br />
+<br />
+<?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_INFO_CANCEL') ?> :
+<br />
+<br />
+<?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_THANK') ?> !

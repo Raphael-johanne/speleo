@@ -35,7 +35,7 @@ class JFormFieldFormule extends JFormFieldList
 	{
 		$db    = JFactory::getDBO();
 		$query = $db->getQuery(true);
-		$query->select('id, name');
+		$query->select('id, sys_name');
 		$query->from('#__formule');
 		$db->setQuery((string) $query);
 		$items = $db->loadObjectList();
@@ -43,7 +43,7 @@ class JFormFieldFormule extends JFormFieldList
 
 		if ($items) {
 			foreach ($items as $item) {
-				$options[] = JHtml::_('select.option', $item->id, $item->name);
+				$options[] = JHtml::_('select.option', $item->id, $item->sys_name);
 			}
 		}
 

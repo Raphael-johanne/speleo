@@ -78,6 +78,7 @@ class BookingViewPeriod extends JViewLegacy
 		}
 
 		JToolbarHelper::title($title, 'booking');
+		JToolbarHelper::apply('period.apply');
 		JToolbarHelper::save('period.save');
 		JToolbarHelper::cancel(
 			'period.cancel',

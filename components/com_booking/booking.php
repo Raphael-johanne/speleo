@@ -9,6 +9,10 @@
 
 require_once JPATH_COMPONENT . '/helpers/encrypt.php';
 require_once JPATH_COMPONENT . '/helpers/mailer.php';
+require_once JPATH_COMPONENT . '/helpers/localized.php';
+require_once JPATH_COMPONENT . '/models/BookingFormule.php';
+require_once JPATH_COMPONENT . '/models/BookingPeriod.php';
+require_once JPATH_COMPONENT . '/models/BookingAvailibility.php';
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');

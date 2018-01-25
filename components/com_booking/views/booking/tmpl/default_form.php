@@ -33,4 +33,3 @@ defined('_JEXEC') or die;
     </label>
     <input id="phone" type="text" name="form[phone]" />
 </form>
-<a href="#" id="form-save"><?php echo JText::_('COM_BOOKING_SUBSCRIBE') ?></a>

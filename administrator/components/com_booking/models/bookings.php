@@ -27,7 +27,7 @@ class BookingModelBookings extends JModelList
 		$db    = JFactory::getDbo();
 		$query = $db->getQuery(true);
 
-		$query->select(['b.*, f.name', 'p.name as periodName', 'SUM(b.price) as totalPrice'])
+		$query->select(['b.*, f.sys_name', 'p.sys_name as periodName', 'SUM(b.price) as totalPrice'])
                 ->from($db->quoteName('#__booking', 'b'))
                 ->join('INNER', $db->quoteName('#__formule', 'f') . ' ON (' . $db->quoteName('b.formule_id') . ' = ' . $db->quoteName('f.id') . ')')
                 ->join('INNER', $db->quoteName('#__period', 'p') . ' ON (' . $db->quoteName('b.period_id') . ' = ' . $db->quoteName('p.id') . ')')

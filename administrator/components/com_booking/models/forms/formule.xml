@@ -6,34 +6,18 @@
 				type="hidden"
 				/>
 		<field
-				name="name"
+				name="sys_name"
 				type="text"
 				label="COM_BOOKING_FORMULE_NAME"
 				size="40"
 				class="inputbox"
 				default=""
-				/>
+		/>
 		<field
 				name="period_ids"
 				type="period"
 				label="COM_BOOKING_FORMULE_PERIOD_IDS"
 				multiple="true"
-		/>
-		<field
-				name="description"
-				type="editor"
-				label="COM_BOOKING_FORMULE_DESCRIPTION"
-				size="40"
-				class="textarea"
-				default=""
-		/>
-		<field
-				name="program"
-				type="editor"
-				label="COM_BOOKING_FORMULE_PROGRAM"
-				size="40"
-				class="textarea"
-				default=""
 		/>
 		<field
 				name="price"
@@ -74,6 +58,6 @@
 				size="40"
 				class="inputbox"
 				default=""
-		/>
+				/>
 	</fieldset>
 </form>
