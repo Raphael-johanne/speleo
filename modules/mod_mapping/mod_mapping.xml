@@ -13,10 +13,14 @@
         <filename>images/m3.png</filename>
         <filename>images/m4.png</filename>
         <filename>images/m5.png</filename>
-        <filename>images/speleoIcon.png</filename>
+        <filename>images/speleoIcon1.png</filename>
+        <filename>images/speleoIcon2.png</filename>
+        <filename>images/speleoIcon3.png</filename>
         <folder>src</folder>
         <filename>src/gkey.php</filename>
         <filename>src/index.html</filename>
+        <filename>src/mapmaking.js</filename>
+        <filename>src/mapstyle.css</filename>
         <filename>src/markerclusterer.js</filename>
         <folder>tmpl</folder>
         <filename>tmpl/default.php</filename>

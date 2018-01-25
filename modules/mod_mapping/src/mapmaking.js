@@ -34,9 +34,9 @@
 
 	// adjust the map to the marker set
 	map.setCenter(bnds.getCenter());
-    map.fitBounds(bnds);
+	map.fitBounds(bnds);
 
-	function placeMarker(name, lat, lng, short_description, difficulty){
+	function placeMarker(name, lat, lng, short_description, difficulty) {
 		var marker = new google.maps.Marker({
           	title: name, 
           	position: {lat: lat, lng: lng},
@@ -53,7 +53,7 @@
 	}
 }
 
-function infoWindowContent(title, description){
+function infoWindowContent(title, description) {
 	return '<div id="content">'+
 				'<div id="siteNotice"></div>'+
 				'<h1 id="firstHeading" class="firstHeading">' + title + '</h1>'+
