@@ -58,6 +58,7 @@ JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
 </ul>
 
 <div id="errors">&nbsp;</div>
+<div id="overview">&nbsp;</div>
 <div id="booking">&nbsp;</div>
 
 <a href="#" id="cancel-step"><?php echo JText::_('COM_BOOKING_PREVIOUS') ?></a>
@@ -67,6 +68,7 @@ JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
     const booking = new Booking(
         'index.php?option=com_booking',
         'booking',
+        'overview',
         'errors',
         <?php echo $this->item->id ?>
     );
