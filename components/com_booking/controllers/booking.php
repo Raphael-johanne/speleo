@@ -22,6 +22,7 @@ class BookingControllerBooking extends JControllerForm
     const FORM_TPL      = 'form';
     const SUCCESS_TPL   = 'success';
     const MAIL_TPL      = 'mail';
+    const OVERVIEW_TPL  = 'overview';
 
     /**
      * @var null
@@ -267,6 +268,12 @@ class BookingControllerBooking extends JControllerForm
      * @since version
      */
     private function sendResonse(array $data) {
+        /**
+        * @todo get booking view method should already implement overview get info via data
+        */
+        $view = $this->getBookingView();
+        $view->data = $this->formatOverviewData($data);
+        $data['overview_html'] = $view->loadTemplate(self::OVERVIEW_TPL);
 
         $app = JFactory::getApplication();
         $app->mimeType = 'application/json';
@@ -278,6 +285,31 @@ class BookingControllerBooking extends JControllerForm
 
         // Close the application.
         $app->close();
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return array
+     *
+     * @since version
+     */
+    private function formatOverviewData(array $data) {
+
+        if (isset($data['howmuch'])) {
+            $data['price'] = $this->formule->price * (int) $data['howmuch'];
+        }
+
+        if (isset($data['date'])) {
+            $data['date'] = date("d/m/Y", strtotime($data['date']));
+        }
+
+        if (isset($data['period'])) {
+            $period = $this->getModel('period')->getPeriod($data['period']);
+            $data['period'] = $period->name . ' - ' . $period->hour;
+        }
+
+        return $data;
     }
 
     /**
