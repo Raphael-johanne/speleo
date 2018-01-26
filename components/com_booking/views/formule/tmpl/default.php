@@ -10,7 +10,7 @@
 defined('_JEXEC') or die;
 JHtml::_('jquery.framework');
 JHtml::script(Juri::base() . 'templates/booking/js/lib/jqueryui.min.js');
-JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
+// JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
 ?>
 
 <?php if ($this->item->lat && $this->item->lng): ?>
@@ -56,7 +56,7 @@ JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
         <?php echo $this->item->price ?>
     </li>
 </ul>
-
+<div id="overview">&nbsp;</div>
 <div id="errors">&nbsp;</div>
 <div id="booking">&nbsp;</div>
 
@@ -67,6 +67,7 @@ JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
     const booking = new Booking(
         'index.php?option=com_booking',
         'booking',
+        'overview',
         'errors',
         <?php echo $this->item->id ?>
     );

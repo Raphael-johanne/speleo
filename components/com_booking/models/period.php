@@ -15,36 +15,42 @@ use Joomla\Utilities\ArrayHelper;
  *
  * @since  0.0.1
  */
-class BookingModelPeriod extends JModelItem
+class BookingModelPeriod extends BookingPeriod
 {
-	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $type    The table name. Optional.
-	 * @param   string  $prefix  The class prefix. Optional.
-	 * @param   array   $config  Configuration array for model. Optional.
-	 *
-	 * @return  JTable  A JTable object
-	 *
-	 * @since   1.6
-	 */
-	public function getTable($type = 'Period', $prefix = 'BookingTable', $config = array())
-	{
-		return JTable::getInstance($type, $prefix, $config);
-	}
-
     /**
+     * @param $id
      *
      * @return mixed
      *
      * @since version
      */
-	public function getPeriod($id)
-	{
-        $table = $this->getTable();
-        $table->load($id);
-        $properties = $table->getProperties(1);
+    public function getPeriod($id)
+    {
+        $db    = $this->getDbo();
+        $query = $db->getQuery(true);
+        $language = JFactory::getLanguage();
 
-        return ArrayHelper::toObject($properties, 'JObject');
-	}
+        list($selects, $lefts) = BookingHelperLocalized::localized(
+            $this->getAttributes(),
+            parent::ENTITY_TYPE,
+            $language->getTag()
+        );
+        
+        $selects[] = 'main.*';
+
+        $query->select($selects);
+        $query->from('#__period main')
+            ->where(
+                sprintf('main.id = %d',
+                   (int) $id
+                )
+            );
+
+        foreach ($lefts as $left) {
+            $query->join('LEFT', $left);
+        }
+
+        $db->setQuery((string) $query);
+        return $db->loadObject();
+    }
 }

@@ -1,11 +1,13 @@
 const Booking = function(
     mainControllerUrl,
     htmlContainerId,
+    htmlOverviewContainerId,
     htmlErrorContainerId,
     formuleId
 ) {
     this.mainControllerUrl = mainControllerUrl;
     this.htmlContainerId = htmlContainerId;
+    this.htmlOverviewContainerId = htmlOverviewContainerId;
     this.htmlErrorContainerId = htmlErrorContainerId;
     this.formuleId = formuleId;
     this.howmuch = 0;
@@ -88,8 +90,8 @@ jQuery.extend(Booking.prototype, {
         };
 
         this.ajaxCall('howmuch', data, function (result) {
+            this.setContainerOverviewContent(result.overview_html);
             this.setContainerContent(result.html);
-            jQuery('#cancel-step').css('display', 'none');
         }.bind(this));
     },
     initStepSaveHowmuch: function() {
@@ -116,6 +118,7 @@ jQuery.extend(Booking.prototype, {
 
         this.ajaxCall('date', data, function (result) {
             this.setContainerContent(result.html);
+            this.setContainerOverviewContent(result.overview_html);
             const availableDate = result.available_date || [];
             /**
              * @todo delete me before deployment and after test
@@ -155,6 +158,7 @@ jQuery.extend(Booking.prototype, {
 
         this.ajaxCall('period', data, function (result) {
             this.setContainerContent(result.html);
+            this.setContainerOverviewContent(result.overview_html);
         }.bind(this));
     },
     initStepSavePeriod: function() {
@@ -185,6 +189,7 @@ jQuery.extend(Booking.prototype, {
 
         this.ajaxCall('form', data, function (result) {
             this.setContainerContent(result.html);
+            this.setContainerOverviewContent(result.overview_html);
             if (this.finalData !== null) {
                 jQuery('#firstname').val(this.finalData.firstname);
                 jQuery('#lastname').val(this.finalData.lastname);
@@ -235,6 +240,9 @@ jQuery.extend(Booking.prototype, {
     },
     setContainerContent: function (content) {
         jQuery('#' + this.htmlContainerId).html(content);
+    },
+    setContainerOverviewContent: function (content) {
+        jQuery('#' + this.htmlOverviewContainerId).html(content);
     },
     cleanErrors:function () {
         jQuery('#' + this.htmlErrorContainerId).html("");
