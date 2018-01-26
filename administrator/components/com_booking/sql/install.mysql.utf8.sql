@@ -7,8 +7,6 @@ DROP TABLE IF EXISTS `speleo_formule_date`;
 CREATE TABLE `speleo_formule` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
 	`sys_name` VARCHAR(255) NOT NULL,
-	`short_description` VARCHAR(255) NOT NULL,
-	`long_description` VARCHAR(255) NOT NULL,
 	`price` float(5) NOT NULL,
 	`min_person_allowed` INT(11) NOT NULL,
 	`max_person_allowed` INT(11) NOT NULL,
