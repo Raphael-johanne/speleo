@@ -129,8 +129,8 @@ class BookingControllerBooking extends JControllerForm
             $view = $this->getBookingView();
             $view->periods = $this->getModel('booking')->getAvailabePeriods(
                 $this->formule->id,
-                date("Y-m-d", strtotime($date)
-                )
+                date("Y-m-d", strtotime($date)),
+                $howMuch
             );
 
             $data['html'] =  $view->loadTemplate(self::PERIOD_TPL);
@@ -216,7 +216,6 @@ class BookingControllerBooking extends JControllerForm
             $view = $this->getBookingView();
             $view->comfirmLink = 'index.php?option=com_booking&task=comfirmation.check&key=' . $encryptionKey;
             $view->booking = $bookingModel->getByKey($encryptionKey);
-            $view->isComfirmed = false;
 
             try {
                 BookingHelperMailer::send(

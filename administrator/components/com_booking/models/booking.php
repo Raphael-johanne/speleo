@@ -84,6 +84,28 @@ class BookingModelBooking extends JModelAdmin
 		return $data;
 	}
 
+/**
+     * @param $periodId
+     * @param $date
+     *
+     * @return mixed
+     *
+     * @since version
+     */
+    public function getById($id)
+    {
+        $db    = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $query->select('b.*, f.sys_name');
+        $query->from('#__booking b')
+        	->join('INNER', $db->quoteName('#__formule', 'f') . ' ON (' . $db->quoteName('f.id') . ' = ' . $db->quoteName('b.formule_id') . ')')
+            ->where('b.id = ' . (int) $id);
+        
+        $db->setQuery((string) $query);
+
+        return $db->loadObject();
+    }
+
     /**
      * @param $periodId
      * @param $date
