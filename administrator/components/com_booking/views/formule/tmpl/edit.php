@@ -65,8 +65,8 @@ JHtml::script(Juri::base() . 'templates/booking/jquery-ui.multidatespicker.js');
             jQuery('#available-dates').val(jQuery('#booking-dates').multiDatesPicker('value'))
         },
         dateFormat: 'yy-mm-dd'
+        <?php if (!empty($this->item->dates)) : ?>
+        , addDates: [<?php echo '"'.implode('","', $this->item->dates).'"' ?>] 
+        <?php endif; ?>
     });
-    <?php if (!empty($this->item->dates)) : ?>
-        jQuery('#booking-dates').multiDatesPicker('value', '<?php echo implode(', ', $this->item->dates) ?>');
-    <?php endif; ?>
 </script>
