@@ -44,12 +44,22 @@ JHtml::script(Juri::base() . 'templates/booking/jquery-ui.multidatespicker.js');
     </div>
     <?php if ($this->item->id > 0) : ?>
         <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
-        <?php foreach ($this->item->attributes as $locale => $fields): ?>
+        <?php 
+        $editor =& JFactory::getEditor();
+        $params = [
+            'smilies'           => '1' ,
+            'style'             => '1' ,  
+            'layer'             => '1' , 
+            'table'             => '1' ,
+            'clear_entities'    => '1'
+        ];
+
+        foreach ($this->item->attributes as $locale => $fields): ?>
             <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'locale_' . $locale, JText::_('COM_BOOKING_LOCALIZED', true) . ': ' .$locale); ?> 
                 <?php foreach ($fields as $code => $value): ?>
                 <div class="control-group ">
-                    <label><?php echo $code ?></label>
-                    <textarea class="mceAdvanced" name="attributes[<?php echo $locale ?>][<?php echo $code ?>]"><?php echo $value ?></textarea>
+                    <label><?php echo JText::_('COM_BOOKING_LOCALIZED_' . strtoupper($code)) ?></label>
+                    <?php echo $editor->display( 'attributes['. $locale . ']['. $code .']', $value, '400', '400', '20', '20', false, null, null, null, $params ) ?>
                 </div>
                 <?php endforeach; ?>
                 <?php echo JHtml::_('bootstrap.endTab'); ?>   
