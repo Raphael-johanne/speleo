@@ -3,7 +3,8 @@ const Booking = function(
     htmlContainerId,
     htmlOverviewContainerId,
     htmlErrorContainerId,
-    formuleId
+    formuleId,
+    locale
 ) {
     this.mainControllerUrl = mainControllerUrl;
     this.htmlContainerId = htmlContainerId;
@@ -15,6 +16,7 @@ const Booking = function(
     this.period = null;
     this.currentStep = 0;
     this.finalData = null;
+    this.locale = locale || 'fr-FR';
 
     jQuery('#booking-map-link').click(function(event) {
         event.preventDefault();
@@ -124,12 +126,15 @@ jQuery.extend(Booking.prototype, {
              * @todo delete me before deployment and after test
              */
             console.log(availableDate);
-            jQuery( "#datepicker" ).datepicker({
+            let options = {
                 beforeShowDay: function(date){
                     var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
                     return [ availableDate.indexOf(string) !== -1 ];
                 }
-            });
+            };
+            
+            jQuery.extend(options, jQuery.datepicker.regional[this.locale]);
+            jQuery( "#datepicker" ).datepicker(options);
         }.bind(this));
     },
     initStepSaveDate: function() {

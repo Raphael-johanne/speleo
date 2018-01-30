@@ -35,6 +35,9 @@ class BookingViewFormule extends JViewLegacy
 	    $model = $this->getModel();
 	    $this->item = $model->getFormule($id);
 
+        $locale = JFactory::getLanguage();
+        $this->localeTag = $locale->getTag();
+
 		parent::display($tpl);
 	}
 }
