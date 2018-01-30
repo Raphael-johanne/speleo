@@ -10,7 +10,9 @@
 defined('_JEXEC') or die;
 JHtml::_('jquery.framework');
 JHtml::script(Juri::base() . 'templates/booking/js/lib/jqueryui.min.js');
-JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
+JHtml::script(Juri::base() . 'templates/booking/js/lib/i18n/datepicker-fr.js');
+JHtml::script(Juri::base() . 'templates/booking/js/lib/i18n/datepicker-en-GB.js');
+//JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
 ?>
 
 <?php if ($this->item->lat && $this->item->lng): ?>
@@ -70,7 +72,8 @@ JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
         'booking',
         'overview',
         'errors',
-        <?php echo $this->item->id ?>
+        <?php echo $this->item->id ?>,
+        '<?php echo $this->localeTag ?>'
     );
     booking.loadStep();
 </script>
