@@ -56,6 +56,5 @@ class BookingViewBookings extends JViewLegacy
 		JToolbarHelper::title(JText::_('COM_BOOKING_MANAGER_BOOKINGS'));
 		JToolbarHelper::addNew('booking.add');
 		JToolbarHelper::editList('booking.edit');
-		JToolbarHelper::deleteList('', 'booking.delete');
 	}
 }

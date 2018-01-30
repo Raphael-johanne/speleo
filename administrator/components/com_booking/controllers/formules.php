@@ -28,10 +28,29 @@ class BookingControllerFormules extends JControllerAdmin
 	 * @since   1.6
 	 */
 	public function getModel(
-	    $name = 'Formule',
-        $prefix = 'FormuleModel',
+	    $name = 'Formules',	
+        $prefix = 'BookingModel',
         $config = ['ignore_request' => true]
     ) {
         return parent::getModel($name, $prefix, $config);
+	}
+
+	
+	public function delete() {
+		$ids    = $this->input->get('cid', array(), 'array');
+		
+		if (empty($ids)) {
+			JError::raiseWarning(500, JText::_('COM_BOOKING_NO_FORMULA_SELECTED'));
+		} else {
+			$model = $this->getModel();
+
+			foreach ($ids as $id) {
+				if ($model->canDelete($id)) {
+					$model->delete($id);
+				}
+			}
+		}
+
+		$this->setRedirect('index.php?option=com_booking&view=formules');
 	}
 }
