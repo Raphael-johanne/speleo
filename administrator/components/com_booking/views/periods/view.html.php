@@ -56,6 +56,6 @@ class BookingViewPeriods extends JViewLegacy
 		JToolbarHelper::title(JText::_('COM_BOOKING_MANAGER_PERIODS'));
 		JToolbarHelper::addNew('period.add');
 		JToolbarHelper::editList('period.edit');
-		JToolbarHelper::deleteList('', 'period.delete');
+		JToolbarHelper::deleteList('Are you sure you want to delete thoses periods ?', 'periods.delete');
 	}
 }

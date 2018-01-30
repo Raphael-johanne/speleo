@@ -56,6 +56,6 @@ class BookingViewFormules extends JViewLegacy
 		JToolbarHelper::title(JText::_('COM_BOOKING_MANAGER_FORMULES'));
 		JToolbarHelper::addNew('formule.add');
 		JToolbarHelper::editList('formule.edit');
-		JToolbarHelper::deleteList('', 'formule.delete');
+		JToolbarHelper::deleteList('Are you sure you want to delete thoses formula ?', 'formules.delete');
 	}
 }
