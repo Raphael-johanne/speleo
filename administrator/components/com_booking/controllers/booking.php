@@ -18,6 +18,9 @@ defined('_JEXEC') or die('Restricted access');
  */
 class BookingControllerBooking extends JControllerForm
 {
+    const MAIL_TPL_COMFIRMED = 'email_comfirmed';
+    const MAIL_TPL_CANCELED = 'email_cancel';
+
     /**
      * @param $model
      * @param $validData
@@ -32,14 +35,9 @@ class BookingControllerBooking extends JControllerForm
 
             $fields = [];
           
-
             foreach (['is_comfirmed', 'is_canceled', 'is_private'] as $state) {
                 $stateValue = isset($booker[$state]) ? 1 : 0;
-                $fields[] = $state . ' = ' . $stateValue;
-
-                if (isset($booker['sent_email'])) {
-                    $this->sendEmailNotification($bookingId, $state);
-                }
+                $fields[]   = $state . ' = ' . $stateValue;
             }
 
             $model->update($bookingId, $fields);
@@ -48,25 +46,38 @@ class BookingControllerBooking extends JControllerForm
             * update availibility for the formule
             */
             BookingAvailibility::update($bookingId, $fields);
+
+            if (isset($booker['sent_email'])) {
+                $booking = $model->getById($bookingId);
+                $this->sendEmailNotification($booking);
+            }
         }
     }
 
     /**
-     * @param $bookingId
-     * @param $state
-     *
-     * @todo
-     *
+     * @param $booking
      * @since version
      */
-    private function sendEmailNotification($bookingId, $state) {
-        switch ($state) {
-            case 'is_comfirmed':
-                
-            break;
-            case 'is_canceled':
+    private function sendEmailNotification($booking) {
+        
+        $view           = parent::getView('booking','html');
+        $view->booking  = $booking;
+        $tpl            = null;
 
-            break;
+        if ($booking->is_comfirmed) {
+            $tpl = self::MAIL_TPL_COMFIRMED;
+        } else if ($booking->is_canceled) {
+            $tpl = self::MAIL_TPL_CANCELED;
+        }
+
+        try {
+            BookingHelperMailer::send(
+                'Your subscription',
+                $booking->email,
+                $view->loadTemplate($tpl)
+            );
+        } catch (Exception $e) {
+             JLog::add($e->getMessage(), JLog::ERROR, 'com_booking');
         }
     }
 }
