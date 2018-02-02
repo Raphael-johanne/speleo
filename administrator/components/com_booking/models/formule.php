@@ -99,6 +99,14 @@ class BookingModelFormule extends JModelAdmin
         $item->dates        = $this->getDates($item->id);
         $item->attributes   = [];
 
+        $images = $this->getImages($item->id);
+
+        if (!empty($images)) {
+            foreach ($images as $image) {
+                $item->{$image->code} = $image->path;
+            }
+        }
+
         $language   = JFactory::getLanguage();
         $locales    = array_keys($language->getKnownLanguages());
 
@@ -164,7 +172,24 @@ class BookingModelFormule extends JModelAdmin
     /**
      * @param $id
      *
-     * @return mixed
+     * @return array
+     *
+     * @since version
+     */
+    private function getImages($id) {
+        $db    = JFactory::getDBO();
+        $query = $db->getQuery(true);
+        $query->select('fi.*');
+        $query->from('#__formule_image fi')
+            ->where('fi.formule_id = ' . (int) $id);
+        $db->setQuery((string) $query);
+        return $db->loadObjectList();
+    }
+
+    /**
+     * @param $id
+     *
+     * @return array
      *
      * @since version
      */
@@ -178,6 +203,14 @@ class BookingModelFormule extends JModelAdmin
         return $db->loadColumn();
     }
 
+    /**
+     * @param $id
+     * @param $attributes
+     *
+     * @return void
+     *
+     * @since version
+     */
     public function updateLocalized($id, $attributes) {
 		$this->saveLocalized(
 			$id,
@@ -186,6 +219,14 @@ class BookingModelFormule extends JModelAdmin
 		);
     }
 
+    /**
+     * @param int   $id
+     * @param array $validData
+     *
+     * @return void
+     *
+     * @since version
+     */
     public function updatePeriods($id, $validData) {
         $db         = JFactory::getDbo();
         $values     = [];
@@ -210,6 +251,15 @@ class BookingModelFormule extends JModelAdmin
         $db->query();
     }
 
+    /**
+     * @param int   $id
+     * @param array $dates
+     * @param array $validData
+     *
+     * @return void
+     *
+     * @since version
+     */
     public function updateAvailableDates($id, $dates, $validData) {
 
         $dates  = explode(', ', $dates);
@@ -263,5 +313,42 @@ class BookingModelFormule extends JModelAdmin
             $db->setQuery($query);
             $db->query();
         }
+    }
+
+    /**
+     * @param int   $id
+     * @param array $validData
+     *
+     * @return void
+     *
+     * @since version
+     */
+    public function updateImages($id, $validData) {
+        $db         = JFactory::getDbo();
+        $values     = [];
+        $query      = $db->getQuery(true);
+        $columns    = ['code', 'formule_id', 'path'];
+
+        $query->delete($db->quoteName('#__formule_image'));
+        $query->where($db->quoteName('formule_id') . ' = ' . (int) $id);
+        $db->setQuery($query);
+        $db->query();
+
+        $query = $db->getQuery(true);
+
+        /**
+        * @todo find a better way to parse images
+        */
+        for ($i = 1; $i < 6; $i++) {
+            if (isset($validData['image_' . $i]) && $validData['image_' . $i]) {
+                $values[] = $db->quote('image_' . $i) .', ' . (int) $id .', '. $db->quote($validData['image_' . $i]);
+            }
+        }
+    
+        $query->insert($db->quoteName('#__formule_image'));
+        $query->columns($columns);
+        $query->values($values);
+        $db->setQuery($query);
+        $db->query();
     }
 }

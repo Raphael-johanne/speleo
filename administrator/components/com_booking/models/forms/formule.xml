@@ -58,6 +58,36 @@
 				size="40"
 				class="inputbox"
 				default=""
-				/>
+		/>
+		<field
+				name="image_1"
+				type="media"
+				label="COM_BOOKING_FORMULE_IMAGE"
+				default=""
+		/>
+		<field
+				name="image_2"
+				type="media"
+				label="COM_BOOKING_FORMULE_IMAGE"
+				default=""
+		/>
+		<field
+				name="image_3"
+				type="media"
+				label="COM_BOOKING_FORMULE_IMAGE"
+				default=""
+		/>
+		<field
+				name="image_4"
+				type="media"
+				label="COM_BOOKING_FORMULE_IMAGE"
+				default=""
+		/>
+		<field
+				name="image_5"
+				type="media"
+				label="COM_BOOKING_FORMULE_IMAGE"
+				default=""
+		/>
 	</fieldset>
 </form>
