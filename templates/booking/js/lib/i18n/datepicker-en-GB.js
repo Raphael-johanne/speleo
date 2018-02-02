@@ -25,7 +25,6 @@ datepicker.regional[ "en-GB" ] = {
 	dayNamesShort: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ],
 	dayNamesMin: [ "Su","Mo","Tu","We","Th","Fr","Sa" ],
 	weekHeader: "Wk",
-	dateFormat: "dd/mm/yy",
 	firstDay: 1,
 	isRTL: false,
 	showMonthAfterYear: false,
