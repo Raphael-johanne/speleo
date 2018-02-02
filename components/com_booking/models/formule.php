@@ -56,4 +56,28 @@ class BookingModelFormule extends BookingFormule
         $db->setQuery((string) $query);
         return $db->loadObject();
     }
+
+    /**
+     * @param $id
+     *
+     * @return mixed
+     *
+     * @since version
+     */
+    public function getImages($id)
+    {
+        $db    = $this->getDbo();
+        $query = $db->getQuery(true);
+
+        $query->select(['code', 'path']);
+        $query->from('#__formule_image')
+            ->where(
+                sprintf('formule_id = %d',
+                   (int) $id
+                )
+            );
+
+        $db->setQuery((string) $query);
+        return $db->loadObjectList();
+    }
 }

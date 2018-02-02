@@ -32,8 +32,9 @@ class BookingViewFormule extends JViewLegacy
         $input  = JFactory::getApplication()->input;
         $id     = $input->get('id', 1, 'INT');
 
-	    $model = $this->getModel();
-	    $this->item = $model->getFormule($id);
+	    $model         = $this->getModel();
+	    $this->item    = $model->getFormule($id);
+        $this->images  = $model->getImages($id);
 
         $locale = JFactory::getLanguage();
         $this->localeTag = $locale->getTag();
