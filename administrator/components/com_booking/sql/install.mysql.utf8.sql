@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS `speleo_formule`;
 DROP TABLE IF EXISTS `speleo_period`;
 DROP TABLE IF EXISTS `speleo_formule_period`;
 DROP TABLE IF EXISTS `speleo_formule_date`;
+DROP TABLE IF EXISTS `speleo_formule_image`;
 
 CREATE TABLE `speleo_booking` (
 	`id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -93,6 +94,17 @@ CREATE TABLE `speleo_formule_date` (
 	`period_id` INT(11) NOT NULL,
 	`date` DATE NOT NULL,
 	`place_remaining` INT(1) DEFAULT 0,
+	PRIMARY KEY (`id`)
+)
+	ENGINE =InnoDB
+	AUTO_INCREMENT =0
+	DEFAULT CHARSET =utf8;
+
+CREATE TABLE `speleo_formule_image` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`code` VARCHAR(255) NOT NULL,
+	`formule_id` INT(11) NOT NULL,
+	`path` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`)
 )
 	ENGINE =InnoDB

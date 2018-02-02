@@ -34,5 +34,6 @@ class BookingControllerFormule extends JControllerForm
         $model->updateLocalized($itemId, $attributes);
         $model->updatePeriods($itemId, $validData);
         $model->updateAvailableDates($itemId, $availableDates, $validData);
+        $model->updateImages($itemId, $validData);
     }
 }
