@@ -13,6 +13,7 @@
 !/modules/
 /modules/mod_mapping/src/gkey.php
 !/templates/
+/templates/booking/*
 !/plugins/
 !/language/
 !/language/*
