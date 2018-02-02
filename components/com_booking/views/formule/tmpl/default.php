@@ -15,12 +15,11 @@ JHtml::script(Juri::base() . 'templates/booking/js/lib/i18n/datepicker-en-GB.js'
 JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
 ?>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
   <script>
-    $(document).ready(function(){
-      $('.imagesSlider').bxSlider();
+    jQuery(document).ready(function(){
+      jQuery('.imagesSlider').bxSlider();
     });
   </script>
 
@@ -66,7 +65,7 @@ JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
     </li>
 </ul>
 
-<?php if (!empty($this->images)) : ?>
+<?php if (!empty($this->images)) :  ?>
     <div class="imagesSlider">
         <?php foreach($this->images as $image) : ?>
             <div><img src="<?php echo Juri::base() . $image->path ?>"/> </div>
