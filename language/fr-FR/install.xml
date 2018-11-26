@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension version="3.8" client="site" type="language" method="upgrade">
+<extension version="3.9" client="site" type="language" method="upgrade">
 	<name>French (FR)</name>
 	<tag>fr-FR</tag>
-	<version>3.8.3.2</version>
-	<creationDate>14/12/2017</creationDate>
+	<version>3.9.0.3</version>
+	<creationDate>07/11/2018</creationDate>
 	<author>French translation team : joomla.fr</author>
 	<authorEmail>traduction@joomla.fr</authorEmail>
 	<authorUrl>http://joomla.fr</authorUrl>
-	<copyright>Copyright (C) 2005 - 2017 Joomla.fr and Open Source Matters, Inc. All rights reserved.</copyright>
+	<copyright>Copyright (C) 2005 - 2018 Joomla.fr and Open Source Matters, Inc. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<description>fr-FR - Site language</description>
 	<files>
@@ -21,6 +21,7 @@
 		<filename>fr-FR.com_media.ini</filename>
 		<filename>fr-FR.com_messages.ini</filename>
 		<filename>fr-FR.com_newsfeeds.ini</filename>
+		<filename>fr-FR.com_privacy.ini</filename>
 		<filename>fr-FR.com_search.ini</filename>
 		<filename>fr-FR.com_tags.ini</filename>
 		<filename>fr-FR.com_users.ini</filename>

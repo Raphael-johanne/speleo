@@ -26,6 +26,7 @@ class BookingControllerFormule extends JControllerForm
      * @since version
      */
     protected function postSaveHook($model, $validData) {
+        
         $item               = $model->getItem();
         $itemId             = $item->get('id');
         $attributes         = JRequest::getVar('attributes', []);

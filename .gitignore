@@ -12,6 +12,7 @@
 !/administrator/components
 /administrator/components/*
 !/administrator/components/com_booking
+!/administrator/components/templates
 !modules
 /modules/*
 !/modules/mod_mapping

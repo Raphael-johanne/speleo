@@ -344,11 +344,13 @@ class BookingModelFormule extends JModelAdmin
                 $values[] = $db->quote('image_' . $i) .', ' . (int) $id .', '. $db->quote($validData['image_' . $i]);
             }
         }
-    
-        $query->insert($db->quoteName('#__formule_image'));
-        $query->columns($columns);
-        $query->values($values);
-        $db->setQuery($query);
-        $db->query();
+
+        if (!empty($values)) {
+            $query->insert($db->quoteName('#__formule_image'));
+            $query->columns($columns);
+            $query->values($values);
+            $db->setQuery($query);
+            $db->query();     
+        }
     }
 }

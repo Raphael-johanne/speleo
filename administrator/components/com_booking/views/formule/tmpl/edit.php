@@ -14,7 +14,6 @@ JHTML::stylesheet(Juri::base() . 'templates/booking/jquery-ui.multidatespicker.c
 JHtml::script(Juri::base() . 'templates/booking/jqueryui.min.js');
 JHtml::script(Juri::base() . 'templates/booking/jquery-ui.multidatespicker.js');
 ?>
-
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
 <form action="<?php echo JRoute::_('index.php?option=com_booking&layout=edit&id=' . (int) $this->item->id); ?>"
     method="post" name="adminForm" id="adminForm">
