@@ -54,15 +54,16 @@ JHtml::script(Juri::base() . 'templates/booking/js/booking.js');
     <?php echo $this->item->name ?>
 </h1>
 <ul>
-    <li>
-        <?php echo $this->item->description ?>
-    </li>
-    <li>
-        <?php echo $this->item->program ?>
-    </li>
-    <li>
-        <?php echo $this->item->price ?>
-    </li>
+    <?php if ($this->item->description): ?>
+        <li>
+            <?php echo $this->item->description ?>
+        </li>
+    <?php endif; ?>
+    <?php if ($this->item->program): ?>
+        <li>
+            <?php echo $this->item->program ?>
+        </li>
+    <?php endif; ?>
 </ul>
 
 <?php if (!empty($this->images)) :  ?>

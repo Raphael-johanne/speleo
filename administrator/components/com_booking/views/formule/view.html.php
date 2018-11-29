@@ -68,9 +68,9 @@ class BookingViewFormule extends JViewLegacy
 		$isNew = ($this->item->id == 0);
 
 		if ($isNew) {
-			$title = JText::_('COM_BOOKING_MANAGER_BOOKING_NEW');
+			$title = JText::_('COM_BOOKING_MANAGER_FORMULA_NEW');
 		} else {
-			$title = JText::_('COM_BOOKING_MANAGER_BOOKING_EDIT');
+			$title = JText::_('COM_BOOKING_MANAGER_FORMULA_EDIT');
 		}
 
 		JToolbarHelper::title($title, 'booking');
