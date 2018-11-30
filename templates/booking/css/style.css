@@ -1,0 +1,36 @@
+ul {
+	list-style-type: none;
+}
+
+#booking{
+	margin-top:20px;
+}
+
+.ui-datepicker-calendar {
+	width:100%;
+}
+
+.col-xs-12.col-sm-4.col-md-4, 
+.col.col-md-8 {
+	margin-top: 25px;
+}
+
+.ui-datepicker-header a{
+	cursor:pointer;
+}
+
+.taglist {
+	float: right;
+}
+
+.ui-datepicker-next {
+	float: right;
+}
+
+.ui-datepicker-title {
+	text-align:center;
+}
+
+.ui-state-active {
+	font-weight:bold;
+}

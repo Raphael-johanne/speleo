@@ -8,9 +8,7 @@
  */
 
 defined('_JEXEC') or die;
-
 ?>
-
 <?php echo JText::_('COM_BOOKING_SUBSCRIPTION_EMAIL_HELLO') ?>,
 <br />
 <br />

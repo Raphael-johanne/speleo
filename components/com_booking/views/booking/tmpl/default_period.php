@@ -8,10 +8,8 @@
  */
 
 defined('_JEXEC') or die;
-
 ?>
-
-<h3><?php echo JText::_('COM_BOOKING_WHEN_PERIOD') ?></h3>
+<h5 class="hr-primary"><?php echo JText::_('COM_BOOKING_WHEN_PERIOD') ?></h5>
 <select id="period">
 <?php foreach ($this->periods as $period) : ?>
     <option value="<?php echo $period->id ?>"><?php echo $period->name ?>&nbsp;-&nbsp;<?php echo $period->hour ?></option>
