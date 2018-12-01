@@ -105,7 +105,6 @@ jQuery.extend(Booking.prototype, {
         this.ajaxCall('savehowmuch', data, function (result) {
             if (result.errors.length > 0) {
                 this.addErrors(result.errors);
-                this.previousStep();
             } else {
                 this.howmuch = result.howmuch;
                 this.nextStep();
@@ -125,16 +124,15 @@ jQuery.extend(Booking.prototype, {
             /**
              * @todo delete me before deployment and after test
              */
-            console.log(availableDate);
+            // console.log(availableDate);
             let options = {
                 beforeShowDay: function(date){
                     var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
                     return [ availableDate.indexOf(string) !== -1 ];
                 }
             };
-            
             jQuery.extend(options, jQuery.datepicker.regional[this.locale]);
-            jQuery( "#datepicker" ).datepicker(options);
+            jQuery("#datepicker").datepicker(options);
         }.bind(this));
     },
     initStepSaveDate: function() {
@@ -147,7 +145,6 @@ jQuery.extend(Booking.prototype, {
         this.ajaxCall('savedate', data, function (result) {
             if (result.errors.length > 0) {
                 this.addErrors(result.errors);
-                this.previousStep();
             } else {
                 this.date = result.date;
                 this.nextStep();
@@ -177,7 +174,6 @@ jQuery.extend(Booking.prototype, {
         this.ajaxCall('saveperiod', data, function (result) {
             if (result.errors.length > 0) {
                 this.addErrors(result.errors);
-                this.previousStep();
             } else {
                 this.period = result.period;
                 this.nextStep();
@@ -187,7 +183,7 @@ jQuery.extend(Booking.prototype, {
     initStepForm: function() {
         const data = {
             'formule_id':this.formuleId,
-            'howmuch' : this.howmuch,
+            'howmuch':this.howmuch,
             'date':this.date,
             'period':this.period
         };
@@ -216,7 +212,6 @@ jQuery.extend(Booking.prototype, {
         this.ajaxCall('saveform', this.finalData, function (result) {
             if (result.errors.length > 0) {
                 this.addErrors(result.errors);
-                this.previousStep();
             } else {
                 this.nextStep();
             }

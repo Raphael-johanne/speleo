@@ -8,10 +8,8 @@
  */
 
 defined('_JEXEC') or die;
-
 ?>
-
-<h3><?php echo JText::_('COM_BOOKING_HOW_MUCH_PERSON') ?></h3>
+<h5 class="hr-primary"><?php echo JText::_('COM_BOOKING_HOW_MUCH_PERSON') ?></h5>
 <select id="howmuch">
     <?php for ($i = 1; $i <= $this->formule->max_person_allowed; $i++) : ?>
         <option value="<?php echo $i ?>"><?php echo $i ?></option>

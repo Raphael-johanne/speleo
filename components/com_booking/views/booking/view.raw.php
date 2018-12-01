@@ -20,8 +20,6 @@ defined('_JEXEC') or die('Restricted access');
  */
 class BookingViewBooking extends JViewLegacy
 {
-    protected $item = null;
-
     /**
      * @param null $tpl
      *
@@ -33,5 +31,4 @@ class BookingViewBooking extends JViewLegacy
 	{
 		parent::display($tpl);
 	}
-
 }

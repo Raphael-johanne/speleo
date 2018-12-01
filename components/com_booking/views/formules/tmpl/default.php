@@ -8,18 +8,21 @@
  */
 
 defined('_JEXEC') or die;
-
-
 ?>
-<ul>
-<?php foreach ($this->items as $item):
-    $link = JRoute::_(BookingHelperRoute::getFormuleRoute($item->id));
-    ?>
-    <li>
-    <a href="<?php echo $link?>">
-        <?php echo $item->name ?>
-    </a>
-    <?php echo $item->price ?>
-    </li>
-<?php endforeach ?>
-</ul>
+<div class="section blog-section">
+	<div class="container">
+		<div class="row">
+			<ul>
+				<?php foreach ($this->items as $item):
+				    $link = JRoute::_(BookingHelperRoute::getFormuleRoute($item->id));
+				    ?>
+				    <li>
+					    <a href="<?php echo $link?>">
+					        <?php echo $item->name ?>
+					    </a>
+				    </li>
+				<?php endforeach ?>
+			</ul>
+		</div>
+	</div>
+</div>

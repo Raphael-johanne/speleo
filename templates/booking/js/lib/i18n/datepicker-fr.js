@@ -16,8 +16,8 @@
 
 datepicker.regional["fr-FR"] = {
 	closeText: "Fermer",
-	prevText: "Précédent",
-	nextText: "Suivant",
+	prevText: "< Mois précédent",
+	nextText: "Mois suivant >",
 	currentText: "Aujourd'hui",
 	monthNames: [ "janvier", "février", "mars", "avril", "mai", "juin",
 		"juillet", "août", "septembre", "octobre", "novembre", "décembre" ],

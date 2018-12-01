@@ -36,6 +36,12 @@ class BookingViewFormule extends JViewLegacy
 	    $this->item    = $model->getFormule($id);
         $this->images  = $model->getImages($id);
 
+        $template = JFactory::getApplication()->getTemplate(true);
+        $template->params->set('bt_banner_title', $this->item->name);
+        if (!empty($this->images)) {
+            $template->params->set('bt_banner_bg', Juri::base() . $this->images[0]->path);  
+        }
+
         $locale = JFactory::getLanguage();
         $this->localeTag = $locale->getTag();
 
