@@ -14,7 +14,7 @@ defined('_JEXEC') or die;
 		<div class="row">
 			<ul>
 				<?php foreach ($this->items as $item):
-				    $link = JRoute::_(BookingHelperRoute::getFormuleRoute($item->id));
+				    $link = JRoute::_(BookingHelperRoute::getFormuleRoute($item->id, $item->name));
 				    ?>
 				    <li>
 					    <a href="<?php echo $link?>">

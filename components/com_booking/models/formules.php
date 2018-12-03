@@ -24,8 +24,7 @@ class BookingModelFormules extends BookingFormule
      *
      * @since version
      */
-	public function getFormules()
-	{
+	public function getFormules() {
         $db         = $this->getDbo();
         $query      = $db->getQuery(true);
         $language   = JFactory::getLanguage();

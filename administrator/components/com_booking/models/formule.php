@@ -30,8 +30,7 @@ class BookingModelFormule extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	public function getTable($type = 'Formule', $prefix = 'BookingTable', $config = [])
-	{
+	public function getTable($type = 'Formule', $prefix = 'BookingTable', $config = []) {
 		return JTable::getInstance($type, $prefix, $config);
 	}
 
@@ -45,8 +44,7 @@ class BookingModelFormule extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	public function getForm($data = [], $loadData = true)
-	{
+	public function getForm($data = [], $loadData = true) {
 		$form = $this->loadForm(
 			'com_booking.formule',
 			'formule',
@@ -56,8 +54,7 @@ class BookingModelFormule extends JModelAdmin
             ]
 		);
 
-		if (empty($form))
-		{
+		if (empty($form)) {
 			return false;
 		}
 
@@ -71,8 +68,7 @@ class BookingModelFormule extends JModelAdmin
 	 *
 	 * @since   1.6
 	 */
-	protected function loadFormData()
-	{
+	protected function loadFormData() {
 		// Check the session for previously entered form data.
 		$data = JFactory::getApplication()->getUserState(
 			'com_booking.edit.formule.data',
@@ -124,8 +120,7 @@ class BookingModelFormule extends JModelAdmin
      *
      * @since version
      */
-    protected function getAttributes($id, $locale)
-    {
+    protected function getAttributes($id, $locale) {
         $db    = $this->getDbo();
         $query = $db->getQuery(true);
 
@@ -324,6 +319,7 @@ class BookingModelFormule extends JModelAdmin
      * @since version
      */
     public function updateImages($id, $validData) {
+        
         $db         = JFactory::getDbo();
         $values     = [];
         $query      = $db->getQuery(true);
