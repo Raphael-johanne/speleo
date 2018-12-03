@@ -16,16 +16,17 @@ defined('_JEXEC') or die;
  */
 class BookingHelperRoute
 {
-
     /**
      * @param $id
+     * @param $name
      *
      * @return string
      *
      * @since version
      */
-    public static function getFormuleRoute($id)
-    {
-        return 'index.php?option=com_booking&view=formule&id=' . $id;
+    public static function getFormuleRoute($id, $name) {
+        $name = JFilterOutput::stringURLSafe(strip_tags($name));
+
+        return 'index.php?option=com_booking&view=formule&id=' . $id . '&slug=' . $name;
     }
 }

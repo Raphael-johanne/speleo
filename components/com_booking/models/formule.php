@@ -25,8 +25,7 @@ class BookingModelFormule extends BookingFormule
      *
      * @since version
      */
-    public function getFormule($id)
-    {
+    public function getFormule($id) {
         $db    = $this->getDbo();
         $query = $db->getQuery(true);
         $language = JFactory::getLanguage();
@@ -64,8 +63,7 @@ class BookingModelFormule extends BookingFormule
      *
      * @since version
      */
-    public function getImages($id)
-    {
+    public function getImages($id) {
         $db    = $this->getDbo();
         $query = $db->getQuery(true);
 
