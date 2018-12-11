@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
 				    ?>
 				    <li>
 					    <a href="<?php echo $link?>">
-					        <?php echo $item->name ?>
+					        <?php echo strip_tags($item->name) ?>
 					    </a>
 				    </li>
 				<?php endforeach ?>
