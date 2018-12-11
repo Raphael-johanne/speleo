@@ -6,10 +6,8 @@
  * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-
-defined('_JEXEC') or die;
-
-/**
+ defined('_JEXEC') or die;
+ /**
  * Routing class from com_booking
  *
  * @since  3.3
@@ -27,26 +25,21 @@ class BookingRouter extends JComponentRouterBase
 	 */
 	public function build(&$query) {
 		$segments = [];
-
-		if (isset($query['view'])) {
+ 		if (isset($query['view'])) {
 			$segments[] = $query['view'];
 			unset($query['view']);
 		}
-
-		if (isset($query['id'])) {
+ 		if (isset($query['id'])) {
 			$segments[] = $query['id'];
 			unset($query['id']);
 		}
-
-		if (isset($query['slug'])) {
+ 		if (isset($query['slug'])) {
 			$segments[] = $query['slug'];
 			unset($query['slug']);
 		}
-
-		return $segments;
+ 		return $segments;
 	}
-
-	/**
+ 	/**
 	 * Parse the segments of a URL.
 	 *
 	 * @param   array  &$segments  The segments of the URL to parse.
@@ -57,23 +50,17 @@ class BookingRouter extends JComponentRouterBase
 	 */
 	public function parse(&$segments) {
 		$vars = [];
-
-		$vars['view'] 	= $segments[0];
+ 		$vars['view'] 	= $segments[0];
 		$vars['id'] 	= $segments[1];
 		$vars['slug'] 	= $segments[2];
-
-		return $vars;
+ 		return $vars;
 	}
 }
-
-function bookingBuildRoute(&$query) {
+ function bookingBuildRoute(&$query) {
 	$router = new BookingRouter;
-
-	return $router->build($query);
+ 	return $router->build($query);
 }
-
-function bookingParseRoute($segments) {
+ function bookingParseRoute($segments) {
 	$router = new BookingRouter;
-
-	return $router->parse($segments);
+ 	return $router->parse($segments);
 }
