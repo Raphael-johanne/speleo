@@ -40,8 +40,8 @@ trait localized {
                     $id,
                     $locale,
                     $code,
-                    $value
-                    );
+                    addslashes($value)
+                );
             }
 
             $query->insert($db->quoteName('#__booking_localized'));
