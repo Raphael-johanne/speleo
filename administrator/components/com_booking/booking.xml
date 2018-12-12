@@ -7,7 +7,7 @@
 	<authorEmail>racol@smile.fr</authorEmail>
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 
 	<install> <!-- Runs on install -->
 		<sql>
@@ -42,11 +42,8 @@
 		<!-- Administration Menu Section -->
 		<menu link='index.php?option=com_booking'>Booking</menu>
 		<submenu>
-			<!--
-				Note that all & must be escaped to &amp; for the file to be valid
-				XML and be parsed by the installer
-			-->
-			<menu view="viewname">COM_EXAMPLE_SUBMENU_VIEWNAME</menu>
+			<menu view="formules" link="option=com_booking&amp;view=formules">COM_BOOKING_FORMULES</menu>
+			<menu view="periods" link="option=com_booking&amp;view=periods">COM_BOOKING_PERIODS</menu>
 		</submenu>
 		<!-- Administration Main File Copy Section -->
 		<!-- Note the folder attribute: This attribute describes the folder
@@ -70,5 +67,4 @@
 			<folder>language</folder>
 		</files>
 	</administration>
-
 </extension>
