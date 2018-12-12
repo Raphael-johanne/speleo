@@ -29,7 +29,11 @@ class BookingViewFormules extends JViewLegacy
      */
 	function display($tpl = null)
 	{
+		$app = JFactory::getApplication();
 		$this->items = $this->get('Formules');
+
+        $template = $app->getTemplate(true);
+        $template->params->set('bt_banner_title', JText::_('Formules'));
 
 		if (count($errors = $this->get('Errors'))) {
 			JLog::add(implode('<br />', $errors), JLog::WARNING, 'jerror');
