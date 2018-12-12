@@ -19,6 +19,23 @@ JHtml::_('jquery.framework');
     });
   </script>
 <div class="col col-md-8">
+    <?php if ($this->item->description): ?>
+        <p>
+            <?php echo $this->item->description ?>
+        </p>
+    <?php endif; ?>
+    <?php if ($this->item->program): ?>
+        <p>
+            <?php echo $this->item->program ?>
+        </p>
+    <?php endif; ?>
+    <?php if (!empty($this->images)) :  ?>
+        <div class="imagesSlider">
+            <?php foreach($this->images as $image) : ?>
+                <div><img src="<?php echo Juri::base() . $image->path ?>"/> </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif;?>
     <?php if ($this->item->lat && $this->item->lng): ?>
         <style>
             #booking-map {
@@ -44,26 +61,6 @@ JHtml::_('jquery.framework');
                 src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_API_KEY&callback=initMap">
         </script>
     <?php endif;?>
-    <?php if ($this->item->description): ?>
-        <p>
-            <?php echo $this->item->description ?>
-        </p>
-    <?php endif; ?>
-    <?php if ($this->item->program): ?>
-        <p>
-            <?php echo $this->item->program ?>
-        </p>
-    <?php endif; ?>
-
-
-    <?php if (!empty($this->images)) :  ?>
-        <div class="imagesSlider">
-            <?php foreach($this->images as $image) : ?>
-                <div><img src="<?php echo Juri::base() . $image->path ?>"/> </div>
-            <?php endforeach; ?>
-        </div>
-    <?php endif;?>
-
     <div class="author-inforow mb-40">
         <figure><img src="/joomla/angles/media/k2/users/1.jpg" alt="Super User"></figure>
                                 
