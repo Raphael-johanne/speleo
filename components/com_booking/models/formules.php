@@ -30,17 +30,19 @@ class BookingModelFormules extends BookingFormule
         $language   = JFactory::getLanguage();
 
         list($selects, $lefts) = BookingHelperLocalized::localized(
-            parent::NAME_ATTRIBUTE,
+            [parent::NAME_ATTRIBUTE, parent::DESCRIPTION_ATTRIBUTE],
             parent::ENTITY_TYPE,
             $language->getTag()
         );
 
-        $selects[] = 'main.*';
+        $selects[]  = 'main.*, #__formule_image.path as image';
+        $lefts[]    = '#__formule_image ON formule_id = main.id';
 
         $query->select($selects);
         $query->from('#__formule main')
             ->where('main.is_published = 1')
-            ->order ('main.order DESC');
+            ->order ('main.order DESC')
+            ->group('#__formule_image.formule_id');
 
         foreach ($lefts as $left) {
             $query->join('LEFT', $left);
