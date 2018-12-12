@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     ${NAMESPACE}
- * @subpackage
+ * @package     racol
+ * @subpackage  com_booking
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
