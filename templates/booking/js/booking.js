@@ -32,13 +32,14 @@ const Booking = function(
     jQuery('#cancel-step').click(function (event) {
         event.preventDefault();
         this.cleanErrors();
+        this.currentStep--;  // one for showing, another for saving ----
         this.previousStep();
     }.bind(this));
 }
 
 jQuery.extend(Booking.prototype, {
     previousStep: function() {
-        this.currentStep-=2;
+        this.currentStep--;
         this.loadStep();
     },
     nextStep: function() {
@@ -121,10 +122,6 @@ jQuery.extend(Booking.prototype, {
             this.setContainerContent(result.html);
             this.setContainerOverviewContent(result.overview_html);
             const availableDate = result.available_date || [];
-            /**
-             * @todo delete me before deployment and after test
-             */
-            // console.log(availableDate);
             let options = {
                 beforeShowDay: function(date){
                     var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -145,6 +142,7 @@ jQuery.extend(Booking.prototype, {
         this.ajaxCall('savedate', data, function (result) {
             if (result.errors.length > 0) {
                 this.addErrors(result.errors);
+                this.previousStep();
             } else {
                 this.date = result.date;
                 this.nextStep();
@@ -174,6 +172,7 @@ jQuery.extend(Booking.prototype, {
         this.ajaxCall('saveperiod', data, function (result) {
             if (result.errors.length > 0) {
                 this.addErrors(result.errors);
+                this.previousStep();
             } else {
                 this.period = result.period;
                 this.nextStep();
@@ -212,6 +211,7 @@ jQuery.extend(Booking.prototype, {
         this.ajaxCall('saveform', this.finalData, function (result) {
             if (result.errors.length > 0) {
                 this.addErrors(result.errors);
+                this.previousStep();
             } else {
                 this.nextStep();
             }
