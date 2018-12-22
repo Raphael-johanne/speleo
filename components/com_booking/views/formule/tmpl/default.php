@@ -36,7 +36,7 @@ JHtml::_('jquery.framework');
             <?php endforeach; ?>
         </div>
     <?php endif;?>
-    <?php if ($this->item->lat && $this->item->lng): ?>
+    <?php if ($this->keyMap && $this->item->lat && $this->item->lng): ?>
         <style>
             #booking-map {
                 height: 400px;
@@ -58,7 +58,7 @@ JHtml::_('jquery.framework');
             }
         </script>
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_API_KEY&callback=initMap">
+                src="https://maps.googleapis.com/maps/api/js?key=<?php echo $this->keyMap ?>&callback=initMap">
         </script>
     <?php endif;?>
     <div class="author-inforow mb-40">
