@@ -20,6 +20,8 @@ class BookingViewFormules extends JViewLegacy
 {
     protected $items = null;
 
+    const COM_BOOKING_FORMULE_IMAGE_PATH = 'images/com_booking/formule/';
+
     /**
      * @param null $tpl
      *
@@ -30,10 +32,15 @@ class BookingViewFormules extends JViewLegacy
 	function display($tpl = null)
 	{
 		$app = JFactory::getApplication();
+		$params = $app->getParams();
 		$this->items = $this->get('Formules');
 
         $template = $app->getTemplate(true);
         $template->params->set('bt_banner_title', JText::_('Formules'));
+
+        if ($banner = $params->get('com_booking_formule_default_banner', null)) {
+            $template->params->set('bt_banner_bg', Juri::base() . self::COM_BOOKING_FORMULE_IMAGE_PATH . $banner);
+        }
 
 		if (count($errors = $this->get('Errors'))) {
 			JLog::add(implode('<br />', $errors), JLog::WARNING, 'jerror');

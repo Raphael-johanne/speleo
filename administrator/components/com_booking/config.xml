@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset
+		name="com_booking"
+		label="Formules"
+		description="com_booking"
+		>
+
+		<field
+			name="com_booking_formule_default_banner"
+			type="string"
+			label="COM_BOOKING_FORMULE_DEFAULT_BANNER"
+			description="COM_BOOKING_FORMULE_DEFAULT_BANNER_DESCRIPTION"
+			size="5"
+			default=""
+			filter="string"
+		/>
+	</fieldset>
+</config>
