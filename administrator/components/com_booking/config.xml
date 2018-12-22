@@ -15,5 +15,15 @@
 			default=""
 			filter="string"
 		/>
+
+		<field
+			name="com_booking_formule_gmap_key"
+			type="string"
+			label="COM_BOOKING_FORMULE_GMAP_KEY"
+			description="COM_BOOKING_FORMULE_GMAP_KEY_DESCRIPTION"
+			size="5"
+			default=""
+			filter="string"
+		/>
 	</fieldset>
 </config>
